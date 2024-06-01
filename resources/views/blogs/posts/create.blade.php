@@ -113,9 +113,11 @@
 	<!--end::Content-->
 @endsection
 @section('scripts')
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('backend/js/media_handler.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#date').datepicker({

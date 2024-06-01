@@ -340,6 +340,9 @@
 					</div>
 					<!--end::Header-->
 					@yield('maincontent')
+
+					 @include('cms.media_modal')
+
 					<!--begin::Footer-->
 					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 						<!--begin::Container-->
