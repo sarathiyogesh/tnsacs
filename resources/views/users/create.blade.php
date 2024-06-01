@@ -44,69 +44,10 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="required form-label">Designation</label>
-										<input type="text" name="designation" class="form-control mb-2" placeholder="Designation" value="{{old('designation')}}">
-										@if($errors->has("designation"))
-											<span id="designation-error" class="help-block">{!! $errors->first("designation") !!}</span>
-										@endif
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Gender</label>
-										<br>
-										<input type="radio" name="gender" value="Male" @if(!old() || old('gender') == 'Male') checked="checked" @endif>  Male &nbsp;
-										<input type="radio" name="gender" value="Female" @if(old('gender') == 'Female') checked="checked" @endif>  Female 
-										@if($errors->has("gender"))
-											<span id="gender-error" class="help-block">{!! $errors->first("gender") !!}</span>
-										@endif
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Mobile</label>
-										<input type="text" name="mobile" class="form-control mb-2" placeholder="Mobile" value="{{old('mobile')}}">
-										@if($errors->has("mobile"))
-											<span id="mobile-error" class="help-block">{!! $errors->first("mobile") !!}</span>
-										@endif
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class=" form-label">Alernative Mobile</label>
-										<input type="text" name="mobile2" class="form-control mb-2" placeholder="Alernative Mobile" value="{{old('mobile2')}}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
 										<label class="required form-label">Email</label>
 										<input type="text" name="email" class="form-control mb-2" placeholder="Email Address" value="{{old('email')}}">
 										@if($errors->has("email"))
 											<span id="email-error" class="help-block">{!! $errors->first("email") !!}</span>
-										@endif
-									</div>
-								</div>
-								
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Date of Birth</label>
-										<input type="text" name="dob" id="dob" class="form-control mb-2" placeholder="Date of Birth" value="{{old('dob')}}" autocomplete="off">
-										@if($errors->has("dob"))
-											<span id="dob-error" class="help-block">{!! $errors->first("dob") !!}</span>
-										@endif
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Role</label>
-										<select name="role" aria-label="Select Role" data-control="select2" data-placeholder="Select Role" class="form-select form-select-solid form-select-lg fw-bold">
-											<option value="">Select Role</option>
-											@foreach($roles as $role)
-												<option value="{{$role->id}}" @if(old('role') == $role->id) selected="selected" @endif>{{$role->name}}</option>
-											@endforeach
-										</select>
-										@if($errors->has("role"))
-											<span id="role-error" class="help-block">{!! $errors->first("role") !!}</span>
 										@endif
 									</div>
 								</div>

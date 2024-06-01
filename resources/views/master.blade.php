@@ -301,9 +301,9 @@
 											<div class="separator my-2"></div>
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
-											<div class="menu-item px-5">
+											<!-- <div class="menu-item px-5">
 												<a href="{{route('myprofile')}}" class="menu-link px-5">My Profile</a>
-											</div>
+											</div> -->
 											<div class="menu-item px-5">
 												<a href="{{route('changepassword')}}" class="menu-link px-5">Change Password</a>
 											</div>
@@ -476,10 +476,10 @@
 			})
 			const scrollContainer = document.querySelector(".scroll-x");
 
-			// scrollContainer.addEventListener("wheel", (evt) => {
-			//     evt.preventDefault();
-			//     scrollContainer.scrollLeft += evt.deltaY;
-			// });
+			scrollContainer.addEventListener("wheel", (evt) => {
+			    evt.preventDefault();
+			    scrollContainer.scrollLeft += evt.deltaY;
+			});
 
 		</script>
 

@@ -3,10 +3,29 @@
 use App\Models\Websettings;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Models\Cms;
-use App\Models\Cmsimage;
+use App\Models\Customfield;
+use App\Models\Media;
 
 class Helpers {
+
+    public static function getcontent($key){
+        $info = Customfield::where('field_slug', $key)->first();
+        if($info){
+            return html_entity_decode($info->field_value);
+        }
+        return '';
+    }
+
+    public static function getsingleimage($key){
+        $info = Customfield::where('field_slug', $key)->first();
+        if($info && $info->field_value){
+            $image = Media::find($info->field_value);
+            if($image){
+                return asset($image->image_link);
+            }
+        }
+        return '';
+    }
 
     public static function portalname() {
         $portal_name = Websettings::getvalue("portalName");
@@ -50,43 +69,6 @@ class Helpers {
 
     public static function web_getcontent($key){
         return Websettings::getvalue($key);
-    }
-
-    public static function getcontent($key){
-        $info = Cms::where('label_name', $key)->first();
-        if($info){
-            return html_entity_decode($info->content);
-        }
-        return '';
-    }
-
-    public static function getcheckboxcontent($key){
-        $info = Cms::where('label_name', $key)->first();
-        if($info && $info->content == 'yes'){
-            return true;
-        }
-        return false;
-    }
-
-    public static function getsingleimage($key){
-        $info = Cmsimage::where('label_name', $key)->first();
-        if($info){
-            return URL::asset($info->file_path);
-        }
-        return '';
-    }
-
-    public static function getsingleimage_id($key){
-        $info = Cmsimage::where('label_name', $key)->first();
-        if($info){
-            return encrypt($info->id);
-        }
-        return '';
-    }
-
-    public static function getmultipleimage($key){
-        $info = Cmsimage::where('label_name', $key)->select('id','file_path')->get();
-        return $info;
     }
  
 }

@@ -5,18 +5,18 @@
             <div class="col-md-4">
                 <div class="widget">
                     <div class="widget-title">Address</div>
-                    52-86, EVK sampath road,<br>mahaveer colony, periyamet,<br>chennai, tamilnadu 600007
+                    {{ Helpers::getcontent('footer_5') }}
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="mb-20"><img src="{{ asset('frontend/images/footer-logo.png') }}"></div>
+                    <div class="mb-20"><img src="{{ Helpers::getsingleimage('footer_6') }}"></div>
 
                     <div class="widget-title">
-                        Capacity building initiative 
+                        {{ Helpers::getcontent('footer_7') }} 
                     </div>
-                    <div class="white">Under safe city projects</div>
+                    <div class="white">{{ Helpers::getcontent('footer_8') }}</div>
                 </div>
             </div>
 
@@ -25,10 +25,24 @@
                     <div class="widget-title">Connect with us</div>
                     <div class="social-icons">
                         <ul>
-                            <li><a href="javascript:;"><img src="{{ asset('frontend/images/facebook.svg') }}"></a></li>
-                            <li><a href="javascript:;"><img src="{{ asset('frontend/images/instagram.svg') }}"></a></li>
-                            <li><a href="javascript:;"><img src="{{ asset('frontend/images/youtube.svg') }}"></a></li>
-                            <li><a href="javascript:;"><img src="{{ asset('frontend/images/twitter.svg') }}"></a></li>
+                            <?php
+                                $facebook = Helpers::getcontent('footer_9');
+                                $instagram = Helpers::getcontent('footer_10');
+                                $youtube = Helpers::getcontent('footer_11');
+                                $twitter = Helpers::getcontent('footer_12');
+                            ?>
+                            @if($facebook)
+                                <li><a href="{{ $facebook }}"><img src="{{ asset('frontend/images/facebook.svg') }}"></a></li>
+                            @endif
+                            @if($instagram)
+                                <li><a href="{{ $instagram }}"><img src="{{ asset('frontend/images/instagram.svg') }}"></a></li>
+                            @endif
+                            @if($youtube)
+                                <li><a href="{{ $youtube }}"><img src="{{ asset('frontend/images/youtube.svg') }}"></a></li>
+                            @endif
+                            @if($twitter)
+                                <li><a href="{{ $twitter }}"><img src="{{ asset('frontend/images/twitter.svg') }}"></a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

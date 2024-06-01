@@ -15,11 +15,9 @@
 				</div>
 				<!--end::Page title-->
 				<!--begin::Actions-->
-				@can('user-add')
 					<div class="d-flex align-items-center gap-2 gap-lg-3">
 						<a href="{{url('users/create')}}" id="kt_help_toggle" class="btn btn-sm btn-primary" >Add User</a>
 					</div>
-				@endcan
 				<!--end::Actions-->
 			</div>
 			<!--end::Container-->

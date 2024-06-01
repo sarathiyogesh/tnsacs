@@ -14,9 +14,7 @@
 			   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Mobile</th>
 			   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Email</th>
 			   <th>Status</th>
-			   @can('user-edit')
 			   	<th class="min-w-70px" rowspan="1" colspan="1">Actions</th>
-			   @endcan
 			</tr>
 			<!--end::Table row-->
 		</thead>

@@ -177,7 +177,6 @@ class MediaController extends Controller
 
                 //insert 
                     $insert = new Media();
-                    $insert->vendor_id = 0;
                     $insert->image_link = $img_url;
                     $insert->file_path = $destinationPath;
                     $insert->file_extension = $extension;

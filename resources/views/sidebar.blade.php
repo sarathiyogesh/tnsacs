@@ -34,14 +34,14 @@
 						<span class="menu-title">Dashboard</span>
 					</a>
 				</div>
-				<div class="menu-item">
+				<!-- <div class="menu-item">
 					<a class="menu-link" href="{{ url('/users') }}">
 						<span class="menu-icon">
 							<i class="las la-users"></i>
 						</span>
 						<span class="menu-title">Admin Users</span>
 					</a>
-				</div>
+				</div> -->
 				<div class="menu-item">
 					<a class="menu-link" href="{{ url('/online/users') }}">
 						<span class="menu-icon">

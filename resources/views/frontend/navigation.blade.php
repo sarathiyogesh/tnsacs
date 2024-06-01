@@ -4,14 +4,14 @@
         <!-- Logo ( * your text or image into link tag *) -->
         <div class="nav-logo-wrap local-scroll">
             <a href="{{ url('/') }}" class="logo">
-                <img src="{{ asset('frontend/images/logo.png') }}" alt="TNSACS" />
+                <img src="{{ Helpers::getsingleimage('header_section_1') }}" alt="TNSACS" />
             </a>
         </div>
 
         <div class="inner-nav-logo">
-            <div class="me-4"><img src="{{ asset('frontend/images/aids.png') }}"></div>
-            <div class="me-4"><img src="{{ asset('frontend/images/naco.png') }}"></div>
-            <div><img src="{{ asset('frontend/images/vop.png') }}"></div>
+            <div class="me-4"><img src="{{ Helpers::getsingleimage('header_section_2') }}"></div>
+            <div class="me-4"><img src="{{ Helpers::getsingleimage('header_section_3') }}"></div>
+            <div><img src="{{ Helpers::getsingleimage('header_section_4') }}"></div>
         </div>
         
     </div>
@@ -28,7 +28,7 @@
         <!-- Main Menu -->
         <div class="inner-nav desktop-nav">
             <ul class="mainmenu">
-                <li><a href="{{ url('/') }}">Modules</a></li>
+                <li><a href="{{ url('/modules') }}">Modules</a></li>
                 <li><a href="{{ url('/certificates') }}">Certificates</a></li>
                 <li><a href="{{ url('mobile-app') }}">Mobile App</a></li>
                 <li><a href="{{ url('contact-uss') }}">Contact Us</a></li>
