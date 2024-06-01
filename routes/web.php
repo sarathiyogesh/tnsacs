@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\CommonController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +12,7 @@ use App\Http\Controllers\CommonController;
 |
 */
 
-Route::get('testing', 'CommonController@testing');
+Route::get('testing', 'BackendController@testing');
 
 Route::get('/', 'FrontendController@index');
 Route::redirect('/index', '/');
@@ -44,44 +41,36 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::group(['prefix'=>'manage/console/'], function () {
     	Route::get('/dashboard',[
             'as' => 'dashboard',
-            'uses' => 'CommonController@dashboard'
+            'uses' => 'BackendController@dashboard'
         ]);
 
         Route::get('/logout',[
             'as' => 'logout',
-            'uses' => 'CommonController@logout'
+            'uses' => 'BackendController@logout'
         ]);
 
         Route::get('/myprofile',[
             'as' => 'myprofile',
-            'uses' => 'CommonController@myprofile'
+            'uses' => 'BackendController@myprofile'
         ]);
 
         Route::post('/savemyprofile',[
             'as' => 'savemyprofile',
-            'uses' => 'CommonController@savemyprofile'
+            'uses' => 'BackendController@savemyprofile'
         ]);
 
         Route::get('/changepassword',[
             'as' => 'changepassword',
-            'uses' => 'CommonController@changepassword'
+            'uses' => 'BackendController@changepassword'
         ]);
 
         Route::post('/savechangepassword',[
             'as' => 'savechangepassword',
-            'uses' => 'CommonController@savechangepassword'
+            'uses' => 'BackendController@savechangepassword'
         ]);
 
     });
 
-
-    //Roles
-    
-    Route::resource('role', 'RoleController');
-    Route::get('/roles/view',[
-        'as' => 'roleview',
-        'uses' => 'RoleController@roleview'
-    ]);
 
     //Users
     Route::resource('users', 'UserController');
@@ -105,58 +94,10 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::get('faq/edit/{id}', [ 'as' => 'faq.edit', 'uses' => 'MasterController@faqedit']);
     Route::post('faq/update', [ 'as' => 'faq.update', 'uses' => 'MasterController@faqupdate']);
 
-
-    //Departments
-    Route::resource('departments', 'DepartmentController');
-    Route::get('department/view',[
-        'as' => 'departmentview',
-        'uses' => 'DepartmentController@departmentview'
-    ]);
-
    
     //Blogs
-
     Route::group(['prefix' => 'blogs/'], function(){
-        
-        //Categories
-
-        Route::get('/category/view',[
-            'as' => 'viewcategory',
-            'uses' => 'BlogController@viewcategory'
-        ]);
-
-        Route::get('/getcategory',[
-            'as' => 'getcategory',
-            'uses' => 'BlogController@getcategory'
-        ]);
-
-        Route::get('/category/add',[
-            'as' => 'addcategory',
-            'uses' => 'BlogController@addcategory'
-        ]);
-
-        Route::post('/category/save',[
-            'as' => 'savecategory',
-            'uses' => 'BlogController@savecategory'
-        ]);
-
-        // Route::get('/category/edit',[
-        //     'as' => 'editcategory',
-        //     'uses' => 'BlogController@editcategory'
-        // ]);
-
-        Route::post('/category/update',[
-            'as' => 'updatecategory',
-            'uses' => 'BlogController@updatecategory'
-        ]);
-
-        Route::get('/category/delete',[
-            'as' => 'deletecategory',
-            'uses' => 'BlogController@deletecategory'
-        ]);
-
         //Posts
-
         Route::get('/post/view',[
             'as' => 'viewpost',
             'uses' => 'BlogController@viewpost'
@@ -167,19 +108,9 @@ Route::group(['middleware' => ['auth.admin']], function() {
             'uses' => 'BlogController@getpost'
         ]);
 
-        Route::get('/getpostslug',[
-            'as' => 'getpostslug',
-            'uses' => 'BlogController@getpostslug'
-        ]);
-
         Route::get('/post/add',[
             'as' => 'addpost',
             'uses' => 'BlogController@addpost'
-        ]);
-
-        Route::get('/posts/getsubcategories',[
-            'as' => 'getsubcategories',
-            'uses' => 'BlogController@getsubcategories'
         ]);
 
         Route::post('/post/save',[
@@ -200,11 +131,6 @@ Route::group(['middleware' => ['auth.admin']], function() {
         Route::get('/post/delete',[
             'as' => 'deletepost',
             'uses' => 'BlogController@deletepost'
-        ]);
-
-        Route::get('post/changestatus',[
-            'as' => 'changestatus',
-            'uses' => 'BlogController@changestatus'
         ]);
     });
 
@@ -293,7 +219,7 @@ Route::group(['middleware' => ['auth.admin']], function() {
     ]);
 
 
-    Route::get('/getdashboardinfo', 'CommonController@getdashboardinfo');
+    Route::get('/getdashboardinfo', 'BackendController@getdashboardinfo');
 
 });
 
@@ -302,17 +228,17 @@ Route::group(['middleware' => ['guest']], function() {
 
     	Route::get('/login',[
             'as' => 'login',
-            'uses' => 'CommonController@login'
+            'uses' => 'BackendController@login'
         ]);
 
         Route::post('/savelogin',[
             'as' => 'savelogin',
-            'uses' => 'CommonController@savelogin'
+            'uses' => 'BackendController@savelogin'
         ]);
 
         Route::post('/loginwithotp',[
             'as' => 'loginwithotp',
-            'uses' => 'CommonController@loginwithotp'
+            'uses' => 'BackendController@loginwithotp'
         ]);
     });
 });

@@ -14,6 +14,7 @@ use Str;
 use Session;
 use Auth;
 use App\Models\Faq;
+use App\Models\Blog;
 
 class FrontendController extends Controller
 {
@@ -156,7 +157,8 @@ class FrontendController extends Controller
 
     public function index(){
         $faqs = Faq::where('status', 'active')->orderBy('id', 'ASC')->get();
-        return view('frontend.index', compact('faqs'));
+        $blogs = Blog::where('status', 'active')->latest()->take(3)->get();
+        return view('frontend.index', compact('faqs', 'blogs'));
     }
 
     public function modules(){

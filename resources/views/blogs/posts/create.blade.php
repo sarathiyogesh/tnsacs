@@ -33,13 +33,13 @@
 						<div class="alert alert-success successMsg-show" style="display:none;"></div>
 						<div class="alert alert-danger errorMsg-show" style="display:none;"></div>
 
-						<form id="addPostForm">
+						<form id="addPostForm" action="{{ url('blogs/post/save') }}" method="POST">
 							@csrf
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="required form-label">Title</label>
-										<input type="text" name="title" class="form-control mb-2" placeholder="Post Title" id="title">
+										<input type="text" name="title" class="form-control mb-2" placeholder="Post Title" id="title" value="{{ old('title') }}">
 										@if($errors->has("title"))
 											<span id="title-error" class="help-block">{!! $errors->first("title") !!}</span>
 										@endif
@@ -52,11 +52,21 @@
 										<label class="required form-label">Date</label>
 										<div class="clearfix"></div>
 									  	<div class="dib pull-left date-input-holder">
-											<input type="text" name="date" class="form-control mb-2" placeholder="Post Date"  id="date" autocomplete="off">
+											<input type="text" name="date" class="form-control mb-2" placeholder="Post Date"  id="date" autocomplete="off" value="{{ old('date')}}">
 											@if($errors->has("date"))
 												<span id="date-error" class="help-block">{!! $errors->first("date") !!}</span>
 											@endif
 										</div>
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="required form-label">Post Description</label>
+										<textarea name="description" id="description" class="form-control mb-2" rows="3">{!! old('description') !!}</textarea>
+										@if($errors->has("description"))
+											<span id="description-error" class="help-block">{!! $errors->first("description") !!}</span>
+										@endif
 									</div>
 								</div>
 								
@@ -65,10 +75,13 @@
 										<label for="featuredImage">Featured image</label>
 									  	<div class="row">
 									  		<div class="col-sm-12">
-											  	@include('media.select_media_template',['options'=>['select'=>'yes','select_type'=>'single','input_name'=>'feature_image','values'=>'']])
+											  	@include('media.select_media_template',['options'=>['select'=>'yes','select_type'=>'single','input_name'=>'feature_image','values'=>old('feature_image'), 'id' => 'feature_image']])
 											</div>
 										</div>
 										<img class="featured-image" src="">
+										@if($errors->has("feature_image"))
+											<span id="feature_image-error" class="help-block">{!! $errors->first("feature_image") !!}</span>
+										@endif
 										<div class="fs-8 text-black">Dimension atleast 850px x 315px</div>
 									</div>
 								</div>
@@ -78,8 +91,8 @@
 										<label class="required form-label">Status</label>
 										<select name="status" aria-label="Select Status" data-control="select2" data-placeholder="Select Status" class="form-select form-select-solid form-select-lg fw-bold">
 											<option value="">Select Status</option>
-											<option value="active" selected>Active</option>
-											<option value="inactive" >Inactive</option>
+											<option value="active" @if(old('status', 'active') == 'active') selected @endif>Active</option>
+											<option value="inactive" @if(old('status') == 'inactive') selected @endif>Inactive</option>
 										</select>
 										@if($errors->has("status"))
 											<span id="status-error" class="help-block">{!! $errors->first("status") !!}</span>
@@ -87,21 +100,13 @@
 									</div>
 								</div>
 
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="required form-label">Post Description</label>
-										<textarea name="description" id="description" class="form-control mb-2" rows="3"></textarea>
-										@if($errors->has("description"))
-											<span id="description-error" class="help-block">{!! $errors->first("description") !!}</span>
-										@endif
-									</div>
-								</div>
+								
 
 							</div>
 
 							<div class="d-flex justify-content-end py-6">
 								<button type="reset" class="btn btn-light btn-active-light-primary me-2">Reset</button>
-								<button type="submit" class="btn btn-primary saveBtn" id="kt_account_profile_details_submit">Save </button>
+								<button type="submit" class="btn btn-primary">Save </button>
 							</div>
 						</form>
 					</div>

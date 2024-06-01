@@ -1,3 +1,6 @@
+<?php
+    use App\Models\Media;
+?>
 @extends('frontend.master')
 @section('maincontent') 
     <main id="main">
@@ -199,93 +202,51 @@
         </section>
         <!--End Learn anywhere Anytime Section-->
 
-        <!--Our blog Section-->
-        <section class="small-section bg-gray-lighter pt-0">
-            <div class="container relative">
+        @if(count($blogs) > 0)
+            <!--Our blog Section-->
+            <section class="small-section bg-gray-lighter pt-0">
+                <div class="container relative">
 
-                <div class="row d-flex justify-content-center text-center mt-20">
-                    <div class="col-md-7">
-                        <h2 class="section-title align-center mb-60 mb-sm-40 wow fadeInDown" data-wow-delay="0.1s">
-                            Our blog
-                        </h2>
+                    <div class="row d-flex justify-content-center text-center mt-20">
+                        <div class="col-md-7">
+                            <h2 class="section-title align-center mb-60 mb-sm-40 wow fadeInDown" data-wow-delay="0.1s">
+                                Our blog
+                            </h2>
+                        </div>
                     </div>
+
+                    <div class="row d-flex justify-content-between">
+                        @foreach($blogs as $blog)
+                            <!--Repeat Post-->
+                            <div class="col-md-3">
+                                <div class="blogPost">
+                                    <a href="javascript:;">
+                                        <div class="post-prev-img">
+                                            <img src="{{ Media::geturl($blog->feature_image) }}" alt="" />
+                                        </div>
+                                        <div class="post-prev-title mb-10 font-alt">
+                                            {!! $blog->title !!}
+                                        </div>
+                                        <div class="post-prev-text">
+                                            {!! substr($blog->description, 0, 100) !!}...
+                                        </div>
+                                        <div class="post-prev-info">
+                                            {!! date('D F d Y', strtotime($blog->date)) !!}
+                                        </div>
+                                        <div class="mt-20">
+                                            <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--End Repeat Post-->
+                        @endforeach
+                    </div>
+
                 </div>
-
-                <div class="row d-flex justify-content-between">
-                    <!--Repeat Post-->
-                    <div class="col-md-3">
-                        <div class="blogPost">
-                            <a href="javascript:;">
-                                <div class="post-prev-img">
-                                    <img src="{{ asset('frontend/images/blog_01.jpg') }}" alt="" />
-                                </div>
-                                <div class="post-prev-title mb-10 font-alt">
-                                    Part-1 headline
-                                </div>
-                                <div class="post-prev-text">
-                                    Sample small text , a small description about the particular blog
-                                </div>
-                                <div class="post-prev-info">
-                                    Wed june 22 2024
-                                </div>
-                                <div class="mt-20">
-                                    <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--End Repeat Post-->
-                    <!--Repeat Post-->
-                    <div class="col-md-3">
-                        <div class="blogPost">
-                            <a href="javascript:;">
-                                <div class="post-prev-img">
-                                    <img src="{{ asset('frontend/images/blog_02.jpg') }}" alt="" />
-                                </div>
-                                <div class="post-prev-title mb-10 font-alt">
-                                    Part-2 headline
-                                </div>
-                                <div class="post-prev-text">
-                                    Sample small text , a small description about the particular blog
-                                </div>
-                                <div class="post-prev-info">
-                                    Wed june 22 2024
-                                </div>
-                                <div class="mt-20">
-                                    <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--End Repeat Post-->
-                    <!--Repeat Post-->
-                    <div class="col-md-3">
-                        <div class="blogPost">
-                            <a href="javascript:;">
-                                <div class="post-prev-img">
-                                    <img src="{{ asset('frontend/images/blog_03.jpg') }}" alt="" />
-                                </div>
-                                <div class="post-prev-title mb-10 font-alt">
-                                    Part-1 headline
-                                </div>
-                                <div class="post-prev-text">
-                                    Sample small text , a small description about the particular blog
-                                </div>
-                                <div class="post-prev-info">
-                                    Wed june 22 2024
-                                </div>
-                                <div class="mt-20">
-                                    <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--End Repeat Post-->
-                </div>
-
-            </div>
-        </section>
-        <!--End Our blog Section-->
+            </section>
+            <!--End Our blog Section-->
+        @endif
 
     </main>
 @endsection

@@ -39,12 +39,10 @@
 						<td>
 							<a href="javascript:;" class="btn {{ $record->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! $record->status !!}</a>
 						</td>
-						@can('user-edit')
-							<td>
-								<a href="{{url('users/'.$record->id.'/edit')}}" class="actionLink"><i class="las la-edit"></i> Edit</a>
-								<!-- <a href="javascript:;" class="me-1" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Delete"><i class="las la-trash text-red fs-xxl-5"></i></a> -->
-							</td>
-						@endcan
+						<td>
+							<a href="{{url('users/'.$record->id.'/edit')}}" class="actionLink"><i class="las la-edit"></i> Edit</a>
+							<!-- <a href="javascript:;" class="me-1" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Delete"><i class="las la-trash text-red fs-xxl-5"></i></a> -->
+						</td>
 					</tr>
 				@endforeach
 			

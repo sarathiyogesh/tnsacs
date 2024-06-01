@@ -6,17 +6,11 @@
 	<thead>
 		<!--begin::Table row-->
 		<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-		   <th class="w-10px pe-2" rowspan="1" colspan="1" aria-label="">
-		      <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-		         <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1">
-		      </div>
-		   </th>
+		   <th class="w-10px pe-2" rowspan="1" colspan="1" aria-label="">S.No</th>
 		   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Post name</th>
+		   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Post date</th>
 		   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Status</th>
-		   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Author</th>
-		   @can('blogs-post-edit')
 		   	<th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Actions</th>
-		   @endcan
 		</tr>
 		<!--end::Table row-->
 	</thead>
@@ -24,51 +18,17 @@
 	<!--begin::Table body-->
 	<tbody>
 		@if(count($records) > 0)
-					<?php $i=1; ?>
+					<?php $i=0; ?>
 			@foreach($records as $record)
 				<tr>
+					<td>{{ ++$i }}</td>
+					<td>{{ $record->title }}</td>
+					<td>{{ date('d-M-Y', strtotime($record->date)) }}</td>
+					<td><a href="javascript:;" class="btn {{ $record->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! $record->status !!}</a></td>
 					<td>
-						<div class="form-check form-check-sm form-check-custom form-check-solid">
-							<input class="form-check-input" type="checkbox" value="1">
-						</div>
+						<a href="{{url('blogs/post/edit/'.$record->id)}}" class="actionLink"><i class="las la-edit"></i> Edit</a>
+						<!-- <a href="javascript:;" class="me-1" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Delete"><i class="las la-trash text-red fs-xxl-5"></i></a> -->
 					</td>
-					<td>{{ $record->post_title }}</td>
-					<td>{!! ucfirst($record->status) !!}</td>
-					<td>{!! $record->author !!}</td>
-					@can('blogs-post-edit')
-						<td>
-							<div class="dropdown">
-							  <button class="dropbtn btn btn-primary btn-xs"><i class="fa-solid fa-list-dropdown"></i>Actions</button>
-							  <div class="dropdown-content">
-							    <a href="{{url('blogs/post/edit/'.$record->post_id)}}">Edit</a>
-							    @if($record->status == 'published' && !$record->featured_post)
-							    	<a href="javascript:;" >Mark featured</a>
-							    @endif
-							    <!-- @if($record->status == 'published' && $record->featured_post)
-							    	<a href="javascript:;" >Remove featured</a>
-							    @endif
-							    @if($record->status != 'published')
-							    	<a href="javascript:;" >Publish</a>
-							    @endif
-							    @if($record->status != 'unpublished')
-							    	<a href="javascript:;" >Unpublish</a>
-							    @endif
-							    @if($record->status != 'draft')
-							    	<a href="javascript:;" >Move to draft</a>
-							    @endif -->
-							    <!-- @if($record->status == 'active')
-							    	<a href="javascript:;" class="changStatus">Inactivate</a>
-							    @endif
-
-							     @if($record->status == 'inactive')
-							    	<a href="javascript:;" class="changStatus" >Activate</a>
-							    @endif -->
-
-							    <a href="javascript:;" class="changStatus" data-id="{{$record->post_id}}">Change Status</a>
-						  	</div>
-						</div>
-						</td>
-					@endcan
 				</tr>
 			@endforeach
 		@else

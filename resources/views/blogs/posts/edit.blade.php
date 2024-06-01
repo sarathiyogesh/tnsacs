@@ -10,13 +10,13 @@
 				<!--begin::Page title-->
 				<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 					<!--begin::Title-->
-					<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Edit Post</h1>
+					<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">New Blog</h1>
 					<!--end::Title-->
 				</div>
 				<!--end::Page title-->
 				<!--begin::Actions-->
 				<div class="d-flex align-items-center gap-2 gap-lg-3">
-					<a href="{{url('blogs/post/view')}}" id="kt_help_toggle" class="btn btn-sm btn-primary" >Manage Posts</a>
+					<a href="{{url('blogs/post/view')}}" id="kt_help_toggle" class="btn btn-sm btn-primary" >Manage Blogs</a>
 				</div>
 				<!--end::Actions-->
 			</div>
@@ -33,15 +33,16 @@
 						<div class="alert alert-success successMsg-show" style="display:none;"></div>
 						<div class="alert alert-danger errorMsg-show" style="display:none;"></div>
 
-						<form id="addPostForm">
+						<form id="addPostForm" action="{{ url('blogs/post/update') }}" method="POST">
 							@csrf
+							<input type="hidden" name="editId" value="{{ $record->id }}">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="required form-label">Title</label>
-										<input type="text" name="post_title" class="form-control mb-2" placeholder="Post Title" id="post_title" value="{{$record->post_title}}">
-										@if($errors->has("post_title"))
-											<span id="post_title-error" class="help-block">{!! $errors->first("post_title") !!}</span>
+										<input type="text" name="title" class="form-control mb-2" placeholder="Post Title" id="title" value="{{ old('title', $record->title) }}">
+										@if($errors->has("title"))
+											<span id="title-error" class="help-block">{!! $errors->first("title") !!}</span>
 										@endif
 									</div>
 								</div>
@@ -49,54 +50,23 @@
 
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="required form-label">Slug</label>
+										<label class="required form-label">Date</label>
 										<div class="clearfix"></div>
-									  	<div class="dib pull-left slug-input-holder">
-											<input type="text" name="post_title_slug" class="form-control mb-2" placeholder="Post Title Slug"  id="post_title_slug" value="{{$record->post_title_slug}}">
-											@if($errors->has("post_title_slug"))
-												<span id="post_title_slug-error" class="help-block">{!! $errors->first("post_title_slug") !!}</span>
+									  	<div class="dib pull-left date-input-holder">
+											<input type="text" name="date" class="form-control mb-2" placeholder="Post Date"  id="date" autocomplete="off" value="{{ old('date', date('d-m-Y', strtotime($record->date))) }}">
+											@if($errors->has("date"))
+												<span id="date-error" class="help-block">{!! $errors->first("date") !!}</span>
 											@endif
 										</div>
-										<div class="fs-8 text-black">http://bookingbash.com/blogs/</div>
 									</div>
 								</div>
-								
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Category</label>
-										<select name="categories[]" aria-label="Select category" data-control="select2" data-placeholder="Select category" class="form-select form-select-solid form-select-lg fw-bold" id="categories" multiple>
-											@foreach($categories as $cat)
-												<option value="{{$cat->category_id}}" @if(in_array($cat->category_id, $selected_categories)) selected="selected" @endif>{{$cat->name}}</option>
-											@endforeach
-											
-										</select>
-										@if($errors->has("category"))
-											<span id="category-error" class="help-block">{!! $errors->first("category") !!}</span>
-										@endif
-									</div>
-								</div>
-								<!-- <div class="col-md-6">
-									<div class="form-group">
-										<label class="required form-label">Sub category</label>
-										<select name="sub_categories[]" aria-label="Select Sub category" data-control="select2" data-placeholder="Select Sub category" class="form-select form-select-solid form-select-lg fw-bold" id="sub_categories" multiple>
-											
-										</select>
-										@if($errors->has("sub_categories"))
-											<span id="sub_categories-error" class="help-block">{!! $errors->first("sub_categories") !!}</span>
-										@endif
-									</div>
-								</div> -->
 
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<div class="form-group">
-										<label class="required form-label">Tags</label>
-										<select name="tags[]" aria-label="Select Tags" data-control="select2" data-placeholder="Select Tags" class="form-select form-select-solid form-select-lg fw-bold" multiple id="tags">
-											@foreach($tags as $tag)
-												<option value="{{$tag->tag_id}}" @if(in_array($tag->tag_id, $chosenTags)) selected="selected" @endif>{{$tag->text}}</option>
-											@endforeach
-										</select>
-										@if($errors->has("tags"))
-											<span id="tags-error" class="help-block">{!! $errors->first("tags") !!}</span>
+										<label class="required form-label">Post Description</label>
+										<textarea name="description" id="description" class="form-control mb-2" rows="3">{!! old('description', $record->description) !!}</textarea>
+										@if($errors->has("description"))
+											<span id="description-error" class="help-block">{!! $errors->first("description") !!}</span>
 										@endif
 									</div>
 								</div>
@@ -104,15 +74,14 @@
 								<div class="col-md-6 mb-15">
 									<div class="form-group">
 										<label for="featuredImage">Featured image</label>
-									  	
 									  	<div class="row">
 									  		<div class="col-sm-12">
-											  	<input style="display: inline-block" type="file" id="featuredImage" onchange="loadImg()" name="post_featured_string" id="post_featured_string" /> 
-												<button class="btn-danger btn-small cancelUpload" style="display:none;">Cancel upload</button>
+											  	@include('media.select_media_template',['options'=>['select'=>'yes','select_type'=>'single','input_name'=>'feature_image','values'=>old('feature_image', $record->feature_image), 'id' => 'feature_image']])
 											</div>
 										</div>
-										@if(isset($record->featured_image))
-											<img class="featured-image" src="{{$record->featured_image}}">
+										<img class="featured-image" src="">
+										@if($errors->has("feature_image"))
+											<span id="feature_image-error" class="help-block">{!! $errors->first("feature_image") !!}</span>
 										@endif
 										<div class="fs-8 text-black">Dimension atleast 850px x 315px</div>
 									</div>
@@ -123,8 +92,8 @@
 										<label class="required form-label">Status</label>
 										<select name="status" aria-label="Select Status" data-control="select2" data-placeholder="Select Status" class="form-select form-select-solid form-select-lg fw-bold">
 											<option value="">Select Status</option>
-											<option value="active" @if($record->status == 'active') selected="selected" @endif>Active</option>
-											<option value="inactive" @if($record->status == 'inactive') selected="selected" @endif>Inactive</option>
+											<option value="active" @if(old('status', $record->status) == 'active') selected @endif>Active</option>
+											<option value="inactive" @if(old('status', $record->status) == 'inactive') selected @endif>Inactive</option>
 										</select>
 										@if($errors->has("status"))
 											<span id="status-error" class="help-block">{!! $errors->first("status") !!}</span>
@@ -132,21 +101,13 @@
 									</div>
 								</div>
 
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="required form-label">Post Description</label>
-										<textarea name="description" id="post_description" class="form-control mb-2" rows="3">{!! $record->post_description !!}</textarea>
-										@if($errors->has("post_description"))
-											<span id="post_description-error" class="help-block">{!! $errors->first("post_description") !!}</span>
-										@endif
-									</div>
-								</div>
+								
 
 							</div>
 
 							<div class="d-flex justify-content-end py-6">
 								<button type="reset" class="btn btn-light btn-active-light-primary me-2">Reset</button>
-								<button type="submit" class="btn btn-primary saveBtn" id="kt_account_profile_details_submit">Save </button>
+								<button type="submit" class="btn btn-primary">Save </button>
 							</div>
 						</form>
 					</div>
@@ -158,15 +119,17 @@
 	<!--end::Content-->
 @endsection
 @section('scripts')
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('backend/js/media_handler.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#dob').datepicker({
+		$('#date').datepicker({
 			format: 'dd-mm-yyyy'
 		});
-		CKEDITOR.replace('post_description');
+		CKEDITOR.replace('description');
 	});
 
 	function loadImg(){
@@ -180,7 +143,7 @@
 
 	function cancelPreview(){
 		$('.featured-image').removeProp('src').hide();
-		$('#featuredImage').val('');
+		$('#post_featured_string').val('');
 		$('.cancelUpload').hide();
 		return false;
 	}
@@ -207,11 +170,7 @@
 	});
 
 	$(document).on('click', '.saveBtn', function(){
-		$('.validationError').remove();
-		var btn = $(this);
-		btn.prop('disabled', true);
 		 var form = $('#addPostForm')[0];
-		 var post_id = "{{$record->post_id}}";
 		// var type = "draft";
 		var categories = [];
 	    $('#categories').each(function(){
@@ -223,15 +182,14 @@
 	        var ta = $(this).val();
 	        tags.push(ta);
 	    });
-		var des = CKEDITOR.instances.post_description.getData();
+		var des = CKEDITOR.instances.description.getData();
 		var fd = new FormData(form);
             // fd.append('status',type);
             fd.append('post_description', des);
             fd.append('categories', categories);
             fd.append('tags', tags);
-            fd.append('post_id', post_id);
 		$.ajax({
-           url:"{{ url('blogs/post/update') }}",
+           url:"{{ url('blogs/post/save') }}",
            data: fd,
            type:"POST",
            headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),},
@@ -241,24 +199,22 @@
            success: function(res){
                 if(res.status == 'success'){
                 	$('.successMsg-show').html(res.msg).show();
-                	btn.prop('disabled', false);
+                	$('#addPostForm')[0].reset();
+                	$('#categories').val("").change();
+                	$('#tags').val("").change();
+                	CKEDITOR.instances.post_description.setData('');
+                	cancelPreview();
+
                 }else if(res.status == 'error'){
                 	$('.errorMsg-show').html(res.msg).show();
-                	btn.prop('disabled', false);
                 }else if(res.status == 'validation'){
-                	btn.prop('disabled', false);
                 	var valid = res.msg;
                     $.each(valid, function(k,v){
-                    	if(k == 'post_featured_string'){
-                    		alert('Image Field : '+v);
-                    	}
 		        		$('#'+k).after('<span class="text-danger validationError" >'+v[0]+'</span>');
 		        	});
-		        	
                 }
             },error: function(e){
                 $('.errorMsg-show').html(e.responseText).show();
-                btn.prop('disabled', false);
             }
        });
 		return false;
