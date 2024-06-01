@@ -78,6 +78,15 @@
 						<span class="menu-title">FAQ</span>
 					</a>
 				</div>
+
+				<div class="menu-item">
+					<a class="menu-link" href="{{ url('/admin/modules') }}">
+						<span class="menu-icon">
+							<i class="las la-home"></i>
+						</span>
+						<span class="menu-title">Modules</span>
+					</a>
+				</div>
 			</div>
 			<!--end::Menu-->
 			

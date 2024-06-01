@@ -15,9 +15,9 @@
                 </div>
                 <!--end::Page title-->
                 <!--begin::Actions-->
-                <!-- <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <a href="javascript:;" id="addTemplate" data-url="{{route('cms.page.template',[$page->id])}}" class="btn btn-sm btn-primary" ><i class="fas fa-user-plus"></i>&nbsp;Add/Edit Template</a>
-                </div> -->
+                </div>
                 <!--end::Actions-->
             </div>
             <!--end::Container-->
@@ -65,10 +65,10 @@
 @stop
 
 @section('scripts')
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{ asset('js/media_handler.js') }}"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('backend/js/media_handler.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote.min.js"></script>
     <script>
         $(".custom_field_texteditor").summernote();
         $('#closecmsModal').on('click', function() {

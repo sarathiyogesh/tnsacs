@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('testing', 'BackendController@testing');
+Route::get('testing', 'CommonController@testing');
 
 Route::get('/', 'FrontendController@index');
 Route::redirect('/index', '/');
@@ -41,32 +41,32 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::group(['prefix'=>'manage/console/'], function () {
     	Route::get('/dashboard',[
             'as' => 'dashboard',
-            'uses' => 'BackendController@dashboard'
+            'uses' => 'CommonController@dashboard'
         ]);
 
         Route::get('/logout',[
             'as' => 'logout',
-            'uses' => 'BackendController@logout'
+            'uses' => 'CommonController@logout'
         ]);
 
         Route::get('/myprofile',[
             'as' => 'myprofile',
-            'uses' => 'BackendController@myprofile'
+            'uses' => 'CommonController@myprofile'
         ]);
 
         Route::post('/savemyprofile',[
             'as' => 'savemyprofile',
-            'uses' => 'BackendController@savemyprofile'
+            'uses' => 'CommonController@savemyprofile'
         ]);
 
         Route::get('/changepassword',[
             'as' => 'changepassword',
-            'uses' => 'BackendController@changepassword'
+            'uses' => 'CommonController@changepassword'
         ]);
 
         Route::post('/savechangepassword',[
             'as' => 'savechangepassword',
-            'uses' => 'BackendController@savechangepassword'
+            'uses' => 'CommonController@savechangepassword'
         ]);
 
     });
@@ -227,7 +227,7 @@ Route::group(['middleware' => ['auth.admin']], function() {
     ]);
 
 
-    Route::get('/getdashboardinfo', 'BackendController@getdashboardinfo');
+    Route::get('/getdashboardinfo', 'CommonController@getdashboardinfo');
 
 });
 
@@ -236,17 +236,17 @@ Route::group(['middleware' => ['guest']], function() {
 
     	Route::get('/login',[
             'as' => 'login',
-            'uses' => 'BackendController@login'
+            'uses' => 'CommonController@login'
         ]);
 
         Route::post('/savelogin',[
             'as' => 'savelogin',
-            'uses' => 'BackendController@savelogin'
+            'uses' => 'CommonController@savelogin'
         ]);
 
         Route::post('/loginwithotp',[
             'as' => 'loginwithotp',
-            'uses' => 'BackendController@loginwithotp'
+            'uses' => 'CommonController@loginwithotp'
         ]);
     });
 });
