@@ -14,12 +14,9 @@ use Str;
 use Session;
 use Auth;
 use App\Models\Faq;
-<<<<<<< HEAD
 use App\Models\Blog;
-=======
 use App\Models\Modules;
 use App\Models\Modulechapter;
->>>>>>> 77e7f921b88476be4ad77af413b091dda9432d69
 
 class FrontendController extends Controller
 {
