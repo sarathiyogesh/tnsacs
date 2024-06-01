@@ -21,8 +21,8 @@ Route::get('/', 'FrontendController@index');
 Route::redirect('/index', '/');
 
 Route::get('/modules', 'FrontendController@modules');
-Route::get('/module-details', 'FrontendController@moduledetails');
-Route::get('/module-chapter', 'FrontendController@modulechapter');
+Route::get('/module-details/{slug}', 'FrontendController@moduledetails');
+Route::get('/module-chapter/{slug}/{id}', 'FrontendController@modulechapter');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/logout', 'FrontendController@logout');
@@ -105,6 +105,14 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::get('faq/edit/{id}', [ 'as' => 'faq.edit', 'uses' => 'MasterController@faqedit']);
     Route::post('faq/update', [ 'as' => 'faq.update', 'uses' => 'MasterController@faqupdate']);
 
+
+    Route::get('admin/module/create', [ 'as' => 'module.create', 'uses' => 'ModuleController@modulecreate']);
+    Route::get('admin/modules', ['as' => 'modules.view', 'uses' => 'ModuleController@moduleview']);
+    Route::get('admin/module/view', [ 'as' => 'modules.list', 'uses' => 'ModuleController@modulelist']);
+    Route::post('admin/module/save', [ 'as' => 'admin.module.save', 'uses' => 'ModuleController@modulesave']);
+    Route::get('admin/module/edit/{id}', [ 'as' => 'admin.module.edit', 'uses' => 'ModuleController@moduleedit']);
+    Route::post('admin/module/update', [ 'as' => 'admin.module.update', 'uses' => 'ModuleController@moduleupdate']);
+    Route::post('admin/module/chapter/add', [ 'as' => 'admin.module.chapter.add', 'uses' => 'ModuleController@addmodulechapter']);
 
     //Departments
     Route::resource('departments', 'DepartmentController');

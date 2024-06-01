@@ -14,6 +14,8 @@ use Str;
 use Session;
 use Auth;
 use App\Models\Faq;
+use App\Models\Modules;
+use App\Models\Modulechapter;
 
 class FrontendController extends Controller
 {
@@ -160,15 +162,33 @@ class FrontendController extends Controller
     }
 
     public function modules(){
-        return view('frontend.modules');
+        $modules = Modules::where('status','active')->take(10)->get();
+        return view('frontend.modules',compact('modules'));
     }
 
-    public function moduledetails(){
-        return view('frontend.module-details');
+    public function moduledetails($slug){
+        $module = Modules::where('status','active')->where('slug',$slug)->first();
+        if(!$module){
+            return back();
+        }
+        $totalminutes = Modulechapter::where('status','active')->where('module_id',$module->id)->sum('duration');
+        $small = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','DESC')->take(1)->sum('duration');
+        $large = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','ASC')->take(1)->sum('duration');
+        $chapters = Modulechapter::where('status','active')->where('module_id',$module->id)->take(50)->get();
+        return view('frontend.module-details',compact('module','totalminutes','chapters','small','large'));
     }
 
-    public function modulechapter(){
-        return view('frontend.module-chapter');
+    public function modulechapter($slug,$chapter_id){
+        $module = Modules::where('status','active')->where('slug',$slug)->first();
+        if(!$module){
+            return back();
+        }
+        $chapter = Modulechapter::where('status','active')->where('module_id',$module->id)->where('id',$chapter_id)->first();
+        if(!$chapter){
+             return back();
+        }
+        $chapters = Modulechapter::where('status','active')->where('module_id',$module->id)->take(50)->get();
+        return view('frontend.module-chapter',compact('module','chapter','chapters'));
     }
 
 
