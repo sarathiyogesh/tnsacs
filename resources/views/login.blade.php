@@ -4,16 +4,16 @@
 	<head><base href="../../../">
 		<title>Tamil Nadu State AIDS Control Society</title>
 		<meta charset="utf-8" />
-		<meta name="description" content="Bharath Gyan ™ Indian Knowledge System Pvt. Ltd" />
-		<meta name="keywords" content="Bharath Gyan ™ Indian Knowledge System Pvt. Ltd" />
+		<meta name="description" content="Tamil Nadu State AIDS Control Society" />
+		<meta name="keywords" content="Tamil Nadu State AIDS Control Society" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Bharath Gyan ™ Indian Knowledge System Pvt. Ltd" />
-		<meta property="og:url" content="https://Bharath Gyan ™ Indian Knowledge System Pvt. Ltd.com/" />
-		<meta property="og:site_name" content="Bharath Gyan ™ Indian Knowledge System Pvt. Ltd" />
-		<link rel="canonical" href="https://bgiks.com/" />
-		<link rel="shortcut icon" href="{ asset('/frontend/images/favicon.png') }}" />
+		<meta property="og:title" content="Tamil Nadu State AIDS Control Society" />
+		<meta property="og:url" content="https://Tamil Nadu State AIDS Control Society.com/" />
+		<meta property="og:site_name" content="Tamil Nadu State AIDS Control Society" />
+		<link rel="canonical" href="" />
+		<link rel="shortcut icon" href="{{ asset('/favicon.png') }}" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
@@ -29,12 +29,12 @@
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-cover bgi-attachment-scroll" style="background-image: url({{ asset('media/section-01.jpg') }}">
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-cover bgi-attachment-scroll">
 				<!--begin::Content-->
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
 					<a href="javascript:;" class="mb-12">
-						<img alt="Logo" src="{!! asset('frontend/images/logo.png') !!}" class="h-80px" />
+						<img alt="Logo" src="{!! asset('vop.png') !!}" class="h-80px" />
 					</a>
 					<!--end::Logo-->
 					 @if(!Session::has('loggedIn'))

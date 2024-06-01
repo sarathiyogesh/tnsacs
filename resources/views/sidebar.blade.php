@@ -3,7 +3,7 @@
 	<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 		<!--begin::Logo-->
 		<a href="{{ url('/') }}">
-			<img alt="Logo" src="{!! asset('frontend/images/logo.png') !!}" class="h-50px logo" />
+			<img alt="Logo" src="{!! asset('vop.png') !!}" class="h-50px logo" />
 		</a>
 		<!--end::Logo-->
 		<!--begin::Aside toggler-->
@@ -27,7 +27,7 @@
 			<!--begin::Menu-->
 			<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/index') }}">
+					<a class="menu-link active" href="{{route('dashboard')}}">
 						<span class="menu-icon">
 							<i class="las la-home"></i>
 						</span>
@@ -50,41 +50,41 @@
 						<span class="menu-title">Online Users</span>
 					</a>
 				</div>
-				
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ route('viewpost') }}">
+					<a class="menu-link" href="{{ url('/admin/modules') }}">
 						<span class="menu-icon">
-							<i class="las la-home"></i>
+							<i class="las la-video"></i>
 						</span>
-						<span class="menu-title">Blogs</span>
+						<span class="menu-title">Modules</span>
 					</a>
 				</div>
 
 				<div class="menu-item">
 					<a class="menu-link" href="{{ url('/cms/page') }}">
 						<span class="menu-icon">
-							<i class="las la-home"></i>
+							<i class="las la-heading"></i>
 						</span>
 						<span class="menu-title">CMS</span>
+					</a>
+				</div>
+				
+
+				<div class="menu-item">
+					<a class="menu-link" href="{{ route('viewpost') }}">
+						<span class="menu-icon">
+							<i class="las la-blog"></i>
+						</span>
+						<span class="menu-title">Blogs</span>
 					</a>
 				</div>
 
 				<div class="menu-item">
 					<a class="menu-link" href="{{ url('/faqs') }}">
 						<span class="menu-icon">
-							<i class="las la-home"></i>
+							<i class="las la-question"></i>
 						</span>
 						<span class="menu-title">FAQ</span>
-					</a>
-				</div>
-
-				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/admin/modules') }}">
-						<span class="menu-icon">
-							<i class="las la-home"></i>
-						</span>
-						<span class="menu-title">Modules</span>
 					</a>
 				</div>
 			</div>
