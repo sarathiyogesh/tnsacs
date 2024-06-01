@@ -1,0 +1,175 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Faculty;
+use Spatie\Permission\Models\Role;
+use Validator;
+use Hash;
+use App\Models\User;
+use DB;
+use Mail;
+use Str;
+use Session;
+use Auth;
+use App\Models\Faq;
+
+class FrontendController extends Controller
+{
+    
+    public function signup(){
+        return view('frontend.signup');
+    }
+
+    public function signuppost(Request $req){
+        $input = $req->all();
+        $rules = ['fullname' => 'required', 'email' => 'required|email', 'password' => 'required|min:6'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            //return $validation->messages();
+            return back()->withInput()->withErrors($validation);
+        }
+
+        $otp = rand(10000, 99999);
+
+        $insert = new User();
+        $insert->name = $input['fullname'];
+        $insert->email = $input['email'];
+        $insert->password = Hash::make('password');
+        $insert->email_otp = $otp;
+        $insert->type='online';
+        $insert->status = 'inactive';
+        $insert->verify_time = time();
+        $insert->save();
+
+        //mail
+        // try{
+        //     Mail::send("emails.signup_otp",['user' => $insert], function($message) use ($input){
+        //         $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
+        //         $message->to($input['email'], $input['fullname'])->subject("Signup verfication");
+        //     });
+        // }catch (Exception $e) {
+            
+        // }
+        $code = encrypt($insert->id);
+        return redirect('signup/verify/'.$code)->with('success', 'OTP sent to your email. Please verify');
+    }
+
+    public function signupverify($code){
+        $id = decrypt($code);
+        $user = User::where('id', $id)->where('status', 'inactive')->first();
+        if($user){
+            return view('frontend.signup_otp', compact('code', 'user'));
+        }
+        return redirect('/');
+    }
+
+    public function signupverifypost(Request $req){
+        $input = $req->all();
+        $rules = ['otp' => 'required|integer|digits:5'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
+        $id = decrypt($input['code']);
+        $check = User::where('id', $id)->where('status', 'inactive')->where('email_otp', $input['otp'])->first();
+        if($check){
+            $check->email_otp = NULL;
+            $check->status = 'active';
+            $check->save();
+            return redirect('/signin')->with('success', 'Email verification completed successfully.');
+        }
+        return back()->with('error', 'Please enter valid OTP');
+    }
+
+    public function login(){
+        return view('frontend.login');
+    }
+
+    public function signinpost(Request $req){
+        $input = $req->all();
+        $rules = ['email' => 'required|email', 'password' => 'required'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
+        if(Auth::attempt(['email' => $req->email, 'password' => $req->password, 'type' => 'online', 'status' => 'active'])){
+            $otp = rand(10000, 99999);
+            $user = User::find(Auth::id());
+            $user->email_otp = $otp;
+            $user->save();
+            Auth::logout();
+            Session::flush();
+            $code = encrypt($user->id);
+
+            //mail
+            // try{
+            //     Mail::send("emails.login_otp",['user' => $user], function($message) use ($user){
+            //         $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
+            //         $message->to($user->email, $user->fullname)->subject("Login verfication");
+            //     });
+            // }catch (Exception $e) {
+                
+            // }
+
+            return redirect('/signin/verify/'.$code)->with('success', 'OTP sent to your email. Please verify');;
+        }
+        return back()->with('error', 'Please enter valid credentials.');
+    }
+
+
+    public function signinverify($code){
+        $id = decrypt($code);
+        $user = User::where('id', $id)->where('status', 'active')->first();
+        if($user){
+            return view('frontend.login_otp', compact('code', 'user'));
+        }
+        return redirect('/');
+    }
+
+    public function signinverifypost(Request $req){
+        $input = $req->all();
+        $rules = ['otp' => 'required|integer|digits:5'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
+        $id = decrypt($input['code']);
+        $check = User::where('id', $id)->where('status', 'active')->where('email_otp', $input['otp'])->first();
+        if($check){
+            $check->email_otp = NULL;
+            $check->save();
+            Auth::loginUsingId($check->id);
+            return redirect('/');
+        }
+        return back()->with('error', 'Please enter valid OTP');
+    }
+
+
+
+    public function logout(){
+        Auth::logout();
+        Session::flush();
+        return redirect('/');
+    }
+
+    public function index(){
+        $faqs = Faq::where('status', 'active')->orderBy('id', 'ASC')->get();
+        return view('frontend.index', compact('faqs'));
+    }
+
+    public function modules(){
+        return view('frontend.modules');
+    }
+
+    public function moduledetails(){
+        return view('frontend.module-details');
+    }
+
+    public function modulechapter(){
+        return view('frontend.module-chapter');
+    }
+
+
+}

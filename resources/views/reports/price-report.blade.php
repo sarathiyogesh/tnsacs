@@ -1,0 +1,70 @@
+@extends("master")
+
+@section('maincontent')
+	<!--begin::Content-->
+	<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+		<!--begin::Toolbar-->
+		<div class="toolbar" id="kt_toolbar">
+			<!--begin::Container-->
+			<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+				<!--begin::Page title-->
+				<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+					<!--begin::Title-->
+					<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Experience's Price Report</h1>
+					<!--end::Title-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Post-->
+		<div class="post d-flex flex-column-fluid" id="kt_post">
+			<div id="kt_content_container" class="container-xxl">
+
+				<div class="card card-flush mb-4">
+					<div class="card-header py-5 gap-2 gap-md-5">
+						<div class="card-header-title">Search by Filter</div>
+						<!--begin::Search-->
+						<form method="GET" action="/report/price-reports">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="d-flex align-items-center position-relative">
+										<select name="activity_id" data-control="select2" data-placeholder="Select an Option"  aria-label="Select Activity" id="activity_id" class="form-control form-control-solid ps-14">
+											<option>Select Activity</option>
+				                            @foreach($activities as $rec)
+			                                    <option <?php if(isset($_GET['activity_id']) && $_GET['activity_id'] == $rec->activity_id){ echo 'selected'; } ?> value="{{$rec->activity_id}}">{{$rec->activity_name}}</option>
+			                                @endforeach
+				                        </select>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<button type="submit" class="btn btn-primary btn-sm">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="card card-flush">
+					<!--begin::Card body-->
+					<div class="card-body">
+						<!--begin::Table-->
+						<div class="alert alert-danger errorMsg-show" style="display:none;"></div>
+						<div id="kt_ecommerce_products_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+							<div class="table-responsive showTable">
+								@include('reports.price-report-table')
+							</div>
+						</div>
+					</div>
+					<!--end::Card body-->
+				</div>
+			</div>
+		</div>
+		<!--end::Post-->
+
+		<!--end::Help drawer-->
+	</div>
+	<!--end::Content-->
+
+@endsection
