@@ -1,3 +1,8 @@
+<?php 
+    use App\Models\Modules;
+    use App\Models\Modulechapter;
+    use App\Models\Media;
+?>
 @extends('frontend.master')
 @section('maincontent') 
     <main id="main">
@@ -6,23 +11,23 @@
                 <div class="row mb-40">
                     <div class="col-md-8">
                         <div class="mod-breadcrumbs">
-                            <a href="{{ url('/') }}">Home</a>&nbsp;<i class="las la-angle-right"></i>&nbsp;<a href="{{ url('modules') }}">Modules</a>&nbsp;<i class="las la-angle-right"></i>&nbsp;<span>Intersectionality</span>
+                            <a href="{{ url('/') }}">Home</a>&nbsp;<i class="las la-angle-right"></i>&nbsp;<a href="{{ url('modules') }}">Modules</a>&nbsp;<i class="las la-angle-right"></i>&nbsp;<span>{{$module->title}}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="category-title mb-10">Wellbeing</div>
+                        <div class="category-title mb-10">{{$module->category}}</div>
                         <h2 class="section-title font-alt align-left mb-30 mb-sm-10 wow fadeInDown" data-wow-delay="0.1s">
-                            Intersectionality
+                            {{$module->title}}
                         </h2>
 
                         <div class="section-text">
-                            Intersectionality is an analytical framework for understanding how individuals' various social and political identities result in unique combinations of discrimination and privilege. Intersectionality identifies multiple factors of advantages and disadvantages. These factors include gender, caste, sex, race, ethnicity, class, sexuality, religion, disability, weight, and physical appcategory-titleearance. These intersecting and overlapping social identities may be both empowering and oppressing.
+                           {!! $module->description !!}
                         </div>
 
-                        <div class="timer mt-20 mb-20"><b>1hr 25 mins</b></div>
+                        <div class="timer mt-20 mb-20"><b>{{Modules::gethourandmin($totalminutes)}}</b></div>
                         <div><a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Start Now</a></div>
 
 
@@ -51,15 +56,19 @@
                                 <div class="tab-pane fade show active" id="contents" role="tabpanel">
                                     <div class="video-list">
                                         <ul>
+                                            <?php 
+                                                $i = 1;
+                                            ?>
+                                            @foreach($chapters as $chapter)
                                             <li>
-                                                <a href="javascript:;">
+                                                <a href="{{ url('module-chapter/'.$module->slug.'/'.$chapter->id) }}">
                                                     <div>
                                                         <div class="alt-service-item">
                                                             <div class="alt-service-icon">
                                                                 <img src="{{ asset('frontend/images/play.svg') }}">
                                                             </div>
-                                                            <h3 class="alt-services-title font-alt">Introduction</h3>
-                                                            Chapter - 1 <span class="px-3">20 mins, 26 secs</span>
+                                                            <h3 class="alt-services-title font-alt">{{$chapter->title}}</h3>
+                                                            Chapter - {{$i}} <span class="px-3">{{Modules::gethourandmin($chapter->duration)}}</span>
                                                         </div>
                                                     </div>
 
@@ -68,96 +77,10 @@
                                                     </div>
                                                 </a>
                                             </li>
-
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <div>
-                                                        <div class="alt-service-item">
-                                                            <div class="alt-service-icon">
-                                                                <img src="{{ asset('frontend/images/play.svg') }}">
-                                                            </div>
-                                                            <h3 class="alt-services-title font-alt">Embracing diversity</h3>
-                                                            Chapter - 2 <span class="px-3">20 mins, 26 secs</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <img src="{{ asset('frontend/images/right-arrow.svg') }}">
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <div>
-                                                        <div class="alt-service-item">
-                                                            <div class="alt-service-icon">
-                                                                <img src="{{ asset('frontend/images/play.svg') }}">
-                                                            </div>
-                                                            <h3 class="alt-services-title font-alt">Advancing LGBTQA + Rights</h3>
-                                                            Chapter - 3 <span class="px-3">20 mins, 26 secs</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <img src="{{ asset('frontend/images/right-arrow.svg') }}">
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <div>
-                                                        <div class="alt-service-item">
-                                                            <div class="alt-service-icon">
-                                                                <img src="{{ asset('frontend/images/play.svg') }}">
-                                                            </div>
-                                                            <h3 class="alt-services-title font-alt">Chapter 4 main heading</h3>
-                                                            Chapter - 4 <span class="px-3">20 mins, 26 secs</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <img src="{{ asset('frontend/images/right-arrow.svg') }}">
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <div>
-                                                        <div class="alt-service-item">
-                                                            <div class="alt-service-icon">
-                                                                <img src="{{ asset('frontend/images/play.svg') }}">
-                                                            </div>
-                                                            <h3 class="alt-services-title font-alt">Chapter 5 main heading</h3>
-                                                            Chapter - 5 <span class="px-3">20 mins, 26 secs</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <img src="{{ asset('frontend/images/right-arrow.svg') }}">
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <div>
-                                                        <div class="alt-service-item">
-                                                            <div class="alt-service-icon">
-                                                                <img src="{{ asset('frontend/images/play.svg') }}">
-                                                            </div>
-                                                            <h3 class="alt-services-title font-alt">Chapter 6 main headings</h3>
-                                                            Chapter - 6 <span class="px-3">20 mins, 26 secs</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <img src="{{ asset('frontend/images/right-arrow.svg') }}">
-                                                    </div>
-                                                </a>
-                                            </li>
+                                            <?php 
+                                                $i++;
+                                            ?>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -177,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="image-round"><img src="{{ asset('frontend/images/intersectionality_01.jpg') }}"></div>
+                        <div class="image-round"><img src="{{ Media::geturl($module->banner_image) }}"></div>
 
                         <div class="bg-card mt-30">
                             <h4 class="mb-10"><b>Stats & Properties</b></h4>
@@ -185,15 +108,15 @@
                             <table class="table">
                                 <tr>
                                     <th>Total Duration</th>
-                                    <td>02 hrs, 56 min’s</td>
+                                    <td>{{Modules::gethourandmin($totalminutes)}}</td>
                                 </tr>
                                 <tr>
                                     <th>Smallest Chapter</th>
-                                    <td>30 mins, 20sec’s</td>
+                                    <td>{{Modules::gethourandmin($small)}}</td>
                                 </tr>
                                 <tr>
                                     <th>Largest Chapter</th>
-                                    <td>1 hr, 20 min’s</td>
+                                    <td>{{Modules::gethourandmin($large)}}</td>
                                 </tr>
                             </table>
                         </div>
