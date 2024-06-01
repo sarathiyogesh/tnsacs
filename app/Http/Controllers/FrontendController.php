@@ -143,6 +143,9 @@ class FrontendController extends Controller
             $check->email_otp = NULL;
             $check->save();
             Auth::loginUsingId($check->id);
+            if(Session::has('redirect') && Session::get('redirect') != ''){
+                return redirect(Session::get('redirect'));
+            }
             return redirect('/');
         }
         return back()->with('error', 'Please enter valid OTP');
@@ -167,6 +170,10 @@ class FrontendController extends Controller
     }
 
     public function moduledetails($slug){
+        if(!Auth::check()){
+            Session::put('redirect',\URL::to('module-details/'.$slug));
+            return redirect('signin');
+        }
         $module = Modules::where('status','active')->where('slug',$slug)->first();
         if(!$module){
             return back();
@@ -179,6 +186,10 @@ class FrontendController extends Controller
     }
 
     public function modulechapter($slug,$chapter_id){
+        if(!Auth::check()){
+            Session::put('redirect',\URL::to('module-details/'.$slug));
+            return redirect('signin');
+        }
         $module = Modules::where('status','active')->where('slug',$slug)->first();
         if(!$module){
             return back();
