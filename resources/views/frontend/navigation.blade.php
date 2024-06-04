@@ -29,7 +29,7 @@
         <div class="inner-nav desktop-nav">
             <ul class="mainmenu">
                 <li><a href="{{ url('/modules') }}">Modules</a></li>
-                <li><a href="{{ url('/certificates') }}">Certificates</a></li>
+                <li><a href="{{ url('/modules') }}">Certificates</a></li>
                 <li><a href="{{ url('mobile-app') }}">Mobile App</a></li>
                 <li><a href="{{ url('contact-uss') }}">Contact Us</a></li>
             </ul>

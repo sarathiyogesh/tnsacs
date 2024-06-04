@@ -6852,3 +6852,47 @@ section:hover .small-item-carousel .owl-next{
     border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+.downloadCertificate .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+.downloadCertificate .modal-header .modalClose {
+    padding: .5rem .5rem;
+    margin: -.5rem -.5rem -.5rem auto;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: #fff;
+    border-radius: 50px;
+    opacity: 1;
+    color: #000;
+}
+.downloadCertificate .modal-header .btn-close {
+    margin: 0;
+}
+.downloadCertificate .form .form-control {
+    background-color: #F2F3F4;
+    border-radius: 20px;
+    font-size: 15px;
+    height: 40px;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: 1px solid #E5E5E5;
+}
+.downloadCertificate .form .gender {
+    border: 1px solid #E5E5E5;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 15px;
+}
+.downloadCertificate .form label {
+    color: #828282;
+}
+.downloadCertificate .form textarea {
+    background-color: #F2F3F4;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: 1px solid #E5E5E5;
+}

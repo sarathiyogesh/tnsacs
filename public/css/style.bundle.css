@@ -44544,7 +44544,7 @@ body {
     right: 0;
     left: 0;
     z-index: 100;
-    background-color: transparent;
+    background-color: #FFF;
     height: 65px;
     padding: 0;
     box-shadow: none;
@@ -44598,7 +44598,7 @@ body {
 .toolbar {
   display: flex;
   align-items: center;
-  background-color: transparent;
+  background-color: #fff;
   padding: 0.5rem 0;
 }
 @media (min-width: 992px) {
@@ -44615,9 +44615,8 @@ body {
     margin-bottom: 30px;
   }
   .header-fixed.toolbar-fixed .toolbar {
-    padding: 0 0 15px 0;
-    top: 15px;
-    border-bottom: 1px solid #fff;
+    padding: 0 0 5px 0;
+    top: 60px;
   }
   .aside-enabled.aside-fixed.toolbar-fixed .toolbar {
     left: 265px;

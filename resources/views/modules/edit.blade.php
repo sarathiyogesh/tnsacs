@@ -27,10 +27,12 @@
 		</div>
 		<!--end::Toolbar-->
 		<!--begin::Post-->
-		{!! Helpers::displaymsg() !!}
+		
 		<div class="post d-flex flex-column-fluid" id="kt_post">
 			<div id="kt_content_container" class="container-xxl">
-				<div class="card card-flush">
+				{!! Helpers::displaymsg() !!}
+
+				<div class="card card-flush mb-3">
 					<div class="card-body">
 
 						<form action="{{route('admin.module.update')}}" method="POST">
@@ -67,8 +69,7 @@
 												@endif
 											</div>
 										</div>
-										<img class="featured-image" src="">
-										<div class="fs-8 text-black">Dimension atleast 850px x 315px</div>
+										<div class="fs-8 text-black">Dimension atleast 500px x 620px</div>
 									</div>
 								</div>
 
@@ -80,7 +81,6 @@
 											<span id="description-error" class="help-block">{!! $errors->first("description") !!}</span>
 										@endif
 									</div>
-									<div class="col-md-12">
 									<div class="form-group">
 										<label class="required form-label">Status</label>
 										<select class="form-control mb-2"  name="status">
@@ -93,52 +93,58 @@
 										@endif
 									</div>
 								</div>
-								
-							</div>
-							<div class="d-flex justify-content-end py-6">
-								<button type="reset" class="btn btn-light btn-active-light-primary me-2">Reset</button>
-								<button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Update </button>
+								<div class="d-flex justify-content-end py-6">
+									<button type="reset" class="btn btn-light btn-active-light-primary me-2">Reset</button>
+									<button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Update </button>
+								</div>
+
 							</div>
 						</form>
 					</div>
 				</div>
+
+				<div class="card">
+					<div class="card-body">
+						<h4><b>Chapters</b></h4>
+						<table class="table align-middle table-row-dashed fs-6 gy-2 dataTable no-footer" id="kt_ecommerce_products_table">
+							<thead>
+								<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+								   <th>
+								      S.No
+								   </th>
+								   <th>Title</th>
+								   <th>Duration</th>
+								   <th>URL</th>
+								   <th>Status</th>
+								   <th class="min-w-70px" rowspan="1" colspan="1">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+									<?php $i=0; ?>
+									@foreach($chapters as $chapter)
+										<tr>
+											<td>
+												{{ ++$i }}
+											</td>
+											<td>{{ $chapter->title }}</td>
+											<td>{!! $chapter->duration !!}</td>
+											<td><a href="{{ $chapter->video_url }}" target="_blank">View</a></td>
+											<td>
+												<a href="javascript:;" class="btn {{ $chapter->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! ucfirst($chapter->status) !!}</a>
+											</td>
+											<td>
+												<a href="javascript:;" class="actionLink"><i class="las la-edit"></i> Edit</a>
+											</td>
+										</tr>
+									@endforeach
+							</tbody>
+							<!--end::Table body-->
+						</table>
+					</div>
+				</div>
 			</div>
 
-			<h4>Chapters</h4>
-			<table class="table align-middle table-row-dashed fs-6 gy-2 dataTable no-footer" id="kt_ecommerce_products_table">
-				<thead>
-					<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-					   <th>
-					      S.No
-					   </th>
-					   <th>Title</th>
-					   <th>Duration</th>
-					   <th>URL</th>
-					   <th>Status</th>
-					   <th class="min-w-70px" rowspan="1" colspan="1">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-						<?php $i=0; ?>
-						@foreach($chapters as $chapter)
-							<tr>
-								<td>
-									{{ ++$i }}
-								</td>
-								<td>{{ $chapter->title }}</td>
-								<td>{!! $chapter->duration !!}</td>
-								<td><a href="{{ $chapter->video_url }}" target="_blank">View</a></td>
-								<td>
-									<a href="javascript:;" class="btn {{ $chapter->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! ucfirst($chapter->status) !!}</a>
-								</td>
-								<td>
-									<a href="javascript:;" class="actionLink"><i class="las la-edit"></i> Edit</a>
-								</td>
-							</tr>
-						@endforeach
-				</tbody>
-				<!--end::Table body-->
-			</table>
+			
 
 		</div>
 		<!--end::Post-->
