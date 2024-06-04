@@ -61,6 +61,15 @@
 				</div>
 
 				<div class="menu-item">
+					<a class="menu-link" href="{{ url('/admin/certificates') }}">
+						<span class="menu-icon">
+							<i class="las la-video"></i>
+						</span>
+						<span class="menu-title">Certificates</span>
+					</a>
+				</div>
+
+				<div class="menu-item">
 					<a class="menu-link" href="{{ url('/cms/page') }}">
 						<span class="menu-icon">
 							<i class="las la-heading"></i>
