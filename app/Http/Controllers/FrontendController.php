@@ -99,13 +99,18 @@ class FrontendController extends Controller
             return back()->withErrors($validation)->withInput();
         }
         if(Auth::attempt(['email' => $req->email, 'password' => $req->password, 'type' => 'online', 'status' => 'active'])){
-            $otp = rand(10000, 99999);
-            $user = User::find(Auth::id());
-            $user->email_otp = $otp;
-            $user->save();
-            Auth::logout();
-            Session::flush();
-            $code = encrypt($user->id);
+
+            if(Session::has('redirect') && Session::get('redirect') != ''){
+                return redirect(Session::get('redirect'));
+            }
+            return redirect('/');
+            // $otp = rand(10000, 99999);
+            // $user = User::find(Auth::id());
+            // $user->email_otp = $otp;
+            // $user->save();
+            // Auth::logout();
+            // Session::flush();
+            // $code = encrypt($user->id);
 
             //mail
             // try{
