@@ -17,5 +17,14 @@ class Modules extends Model
             return '';
         }
     }
+
+
+    public static function getmodulename($id){
+        $record = Modules::find($id);
+        if($record){
+            return $record->title;
+        }
+        return '';
+    }
     
 }

@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 use App\Models\Sitelog;
 use App\Models\Modules;
 use App\Models\Modulechapter;
+use App\Models\Certificate;
+use App\Exports\CertificateExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ModuleController extends Controller
 {
@@ -131,6 +134,25 @@ class ModuleController extends Controller
         $insert->status = 'active';
         $insert->save();
         return response()->json(['status'=>'success','msg'=>'New chapter added successfully']);
+    }
+
+    public function certificates(){
+        return view('modules.certificate-view');
+    }
+
+    public function certificateslist(Request $req){
+        $search = $req->search;
+        $records = Certificate::orderBy('id', 'DESC');
+        if($search){
+            $records = $records->where('first_name', 'LIKE', '%'.$search.'%')->orWhere('last_name', 'LIKE', '%'.$search.'%');
+        }
+        $records = $records->paginate(10);
+        $html = view('modules.certificate-view-table', compact('records'))->render();
+        return response()->json(['status' => 'success', 'data' => $html]);
+    }
+
+    public function certificatesexcel (){
+        return Excel::download(new CertificateExcel, 'certificates.xlsx');
     }
 
 }

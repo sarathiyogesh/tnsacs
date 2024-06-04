@@ -16,38 +16,42 @@
                         <div class="modalClose"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
                       </div>
                       <div class="modal-body">
-                        <form class="form">
+                        <form class="form" id="certificate_form">
+                            <input type="hidden" name="module_id" id="module_id" value="">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="First Name" name="">
+                                    <input type="text" class="form-control" id="first_name" placeholder="First Name" name="">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Last Name" name="">
+                                    <input type="text" class="form-control" id="last_name" placeholder="Last Name" name="">
                                 </div>
                             </div>
 
                             <div class="gender">
                                 <div class="mb-3"><label>Gender</label></div>
                                 <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="option1">
                                   <label class="form-check-label" for="inlineRadio1">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="option2">
                                   <label class="form-check-label" for="inlineRadio2">Female</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="option3">
                                   <label class="form-check-label" for="inlineRadio3">Others</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <textarea class="form-control" placeholder="Address"></textarea>
+                                <textarea class="form-control" name="address" id="address" placeholder="Address"></textarea>
                             </div>
 
+                            <div class="alert alert-danger errorMessage" style="display:none;"></div>
+                            <div class="alert alert-success successMessage" style="display:none;"></div>
+
                             <div class="mt-20 text-center">
-                                <button type="button" class="btn btn-mod btn-red btn-circle btn-medium">Submit</button>
+                                <button type="button" id="submit_certificate" class="btn btn-mod btn-red btn-circle btn-medium">Submit</button>
                             </div>
                         </form>
                       </div>
@@ -97,7 +101,7 @@
                                                         <div class="timeline mt-10 mb-10"><b>{{Modules::gethourandmin($totalminutes)}}</b></div>
                                                         <div>
                                                             <a href="{{ url('module-details/'.$module->slug) }}" class="btn btn-mod btn-red btn-circle btn-small">Start Now</a>
-                                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#downloadCertificate" class="btn btn-mod btn-border btn-circle btn-small">Download Certificate</a>
+                                                            <a href="javascript:;" data-id="{{$module->id}}" id="view_certificate_modal" class="btn btn-mod btn-border btn-circle btn-small">Download Certificate</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -115,4 +119,43 @@
                 <!-- End Fullwidth Slider -->
 
             </main>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click', '#view_certificate_modal', function(){
+            $('.errorMessage').html('').hide();
+            $('.successMessage').html('').hide();
+            var module_id = $(this).attr('data-id');
+            $('#module_id').val(module_id);
+            $('#downloadCertificate').modal('show');
+            return false;
+        });
+
+        $(document).on('click', '#submit_certificate', function(){
+            var first_name = $('#first_name').val();
+            var last_name = $('#last_name').val();
+            var gender = $('input[name="gender"]:checked').val();
+            var address = $('#address').val();
+            var module_id = $('#module_id').val();
+
+            $.ajax({
+                url: '/certificatie/post',
+                data: { first_name: first_name, last_name: last_name, gender:gender, address: address, module_id: module_id },
+                dataType: 'json',
+                type: 'GET',
+                success: function(res){
+                    if(res.status == 'success'){
+                        $('#certificate_form')[0].reset();
+                        $('#downloadCertificate').modal('hide');
+                        alert(res.msg);
+                    }else{
+                        $('.errorMessage').html(res.msg).show();
+                    }
+                }, error: function(e){
+                  console.log(e.responseText());
+                }
+              });
+        });
+    </script>
 @endsection
