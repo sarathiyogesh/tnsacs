@@ -78,8 +78,12 @@
 								<!--begin::Toolbar wrapper-->
 								<div class="d-flex align-items-stretch flex-shrink-0">
 									<!--begin::User menu-->
+									
 									<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 										<!--begin::Menu wrapper-->
+										<div class="fw-bold py-4 fs-6 me-10">
+											<a href="javascript:;" class="fs-6"><i class="las la-calendar"></i> March 8, 2024</a>
+										</div>
 										<div class="cursor-pointer symbol symbol-20px symbol-md-30px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 											<img src="{!! asset('vop.png') !!}" alt="user" />
 										</div>

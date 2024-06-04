@@ -18,6 +18,217 @@
 				<!--begin::Actions-->
 			</div>
 		</div>
+
+
+      <div class="post d-flex flex-column-fluid" id="kt_post">
+        <div id="kt_content_container" class="container-xxl">
+          <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <div class="card card-info">
+                      <div class="card-body">
+                        <div class="mb-3"><img src="{!! URL::asset('backend/icon-01.svg') !!}"></div>
+                        <h4>Total number of users of this Learning</h4>
+                        <h1>345</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card card-info">
+                      <div class="card-body">
+                        <div class="mb-3"><img src="{!! URL::asset('backend/icon-02.svg') !!}"></div>
+                        <h4>Total number of Modules covered</h4>
+                        <h1>345</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-info">
+                      <div class="card-body">
+                        <div class="title">Average time spent</div>
+                        <p class="mb-0">Users that learn our chapters in modules</p>
+
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card card-info">
+                  <div class="card-body">
+                    <div class="title">Top Performing Chapters</div>
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th class="text-center">Visitor</th>
+                          <th class="text-center">Completed</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>INTERSECTIONALITY - Chapter 1</span>
+                            </div>
+                          </td>
+                          <td align="center">100</td>
+                          <td align="center">45</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card card-info mh-set1">
+                  <div class="card-body">
+                    <div class="title mb-5">Overall completion rate</div>
+
+                    <div class="row d-flex align-items-center">
+                      <div class="col-md-6">
+                        <div class="d-flex align-items-start mb-4">
+                          <div class="dot-icon-two me-3"></div>
+                          <div class="dot-icon-two-info">
+                            <h3>Module 1</h3>
+                            <h2>90%</h2>
+                          </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                          <div class="dot-icon-two me-3"></div>
+                          <div class="dot-icon-two-info">
+                            <h3>Module 2</h3>
+                            <h2>70%</h2>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="text-center">
+                          <img src="{!! URL::asset('backend/stats-01.png') !!}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card card-info mh-set1">
+                  <div class="card-body">
+                    <div class="card-info-two mb-3">
+                      <h3>Modules Viewed</h3>
+
+                      <div class="text-center">
+                        <div class="count">173648</div>
+                        <div class="desc">Average module views</div>
+                      </div>
+                    </div>
+
+                    <div class="card-info-two">
+                      <h3>Hours Viewed</h3>
+
+                      <div class="text-center">
+                        <div class="count">238978</div>
+                        <div class="desc">Average hours watched</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 	</div>
 	<!--end::Content-->
 @endsection
