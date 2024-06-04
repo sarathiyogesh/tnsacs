@@ -30,8 +30,8 @@
             <ul class="mainmenu">
                 <li><a href="{{ url('/modules') }}">Modules</a></li>
                 <li><a href="{{ url('/modules') }}">Certificates</a></li>
-                <li><a href="{{ url('mobile-app') }}">Mobile App</a></li>
-                <li><a href="{{ url('contact-uss') }}">Contact Us</a></li>
+                <li><a href="javascript:;">Mobile App</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
             @if(Auth::check())
                 <ul class="admincta">

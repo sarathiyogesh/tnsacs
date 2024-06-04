@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="small-section bg-gray bg-scroll footer pb-60 bg-pos-top" data-background="{{ asset('frontend/images/footer-bg.jpg') }}">
+<footer class="small-section bg-gray bg-scroll footer pb-60 bg-pos-top" data-background="{{ asset('frontend/images/footer-bg.jpg') }}" id="contact">
     <div class="container">
         <div class="row d-flex align-items-end">
             <div class="col-md-4">
