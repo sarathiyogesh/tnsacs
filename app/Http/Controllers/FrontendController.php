@@ -17,6 +17,7 @@ use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\Modules;
 use App\Models\Modulechapter;
+use App\Models\Certificate;
 
 class FrontendController extends Controller
 {
@@ -202,6 +203,25 @@ class FrontendController extends Controller
         }
         $chapters = Modulechapter::where('status','active')->where('module_id',$module->id)->take(50)->get();
         return view('frontend.module-chapter',compact('module','chapter','chapters'));
+    }
+
+    public function savecertificate(Request $req){
+        $input = $req->all();
+        $rules = ['first_name' => 'required', 'last_name' => 'required', 'gender' => 'required', 'address' => 'required'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            return response()->json(['status' => 'error', 'msg' => $validation->messages()->first()]);
+        }
+
+        $new = new Certificate();
+        $new->first_name = $input['first_name'];
+        $new->last_name = $input['last_name'];
+        $new->gender = $input['gender'];
+        $new->address = $input['address'];
+        $new->module_id = $input['module_id'];
+        $new->save();
+
+        return response()->json(['status' => 'success', 'msg' => 'Certificate details has been submitted successfully']);
     }
 
 

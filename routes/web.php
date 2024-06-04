@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/logout', 'FrontendController@logout');
 });
 
+Route::get('certificatie/post', 'FrontendController@savecertificate');
+
 Route::group(['middleware' => ['guest']], function() {
     Route::get('/signup', 'FrontendController@signup');
     Route::post('/signup/post', 'FrontendController@signuppost');
@@ -101,6 +103,11 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::get('admin/module/edit/{id}', [ 'as' => 'admin.module.edit', 'uses' => 'ModuleController@moduleedit']);
     Route::post('admin/module/update', [ 'as' => 'admin.module.update', 'uses' => 'ModuleController@moduleupdate']);
     Route::post('admin/module/chapter/add', [ 'as' => 'admin.module.chapter.add', 'uses' => 'ModuleController@addmodulechapter']);
+
+    Route::get('/admin/certificates', [ 'as' => 'module.certificates', 'uses' => 'ModuleController@certificates']);
+    Route::get('/admin/certificates/list', [ 'as' => 'module.certificates.list', 'uses' => 'ModuleController@certificateslist']);
+
+    Route::get('/admin/certificates/excel', [ 'as' => 'module.certificates.excel', 'uses' => 'ModuleController@certificatesexcel']);
 
    
     //Blogs

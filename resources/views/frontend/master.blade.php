@@ -65,6 +65,6 @@
         <script type="text/javascript" src="{{ asset('frontend/slick/slick.js') }}"></script>
         <script type="text/javascript" src="{{ asset('frontend/js/all.js') }}"></script>     
         <!--[if lt IE 10]><script type="text/javascript" src="{{ asset('frontend/js/placeholder.js') }}"></script><![endif]-->
-        
+        @yield('scripts')
     </body>
 </html>
