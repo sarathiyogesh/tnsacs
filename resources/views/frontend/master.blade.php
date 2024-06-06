@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="{{ asset('/frontend/css/owl.carousel.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/slick/slick.css') }}"> 
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        @yield('styles')
         <style type="text/css">
             .help-block{
                 color: red;

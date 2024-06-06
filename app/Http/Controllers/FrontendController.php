@@ -18,6 +18,8 @@ use App\Models\Blog;
 use App\Models\Modules;
 use App\Models\Modulechapter;
 use App\Models\Certificate;
+use App\Models\Modulehistory;
+use App\Models\Modulechapterhistory;
 
 class FrontendController extends Controller
 {
@@ -182,9 +184,32 @@ class FrontendController extends Controller
             return back();
         }
         $totalminutes = Modulechapter::where('status','active')->where('module_id',$module->id)->sum('duration');
-        $small = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','DESC')->take(1)->sum('duration');
-        $large = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','ASC')->take(1)->sum('duration');
+        $large = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','DESC')->first();
+        if($large){
+            $large = $large->duration;
+        }else{
+            $large = 0;
+        }
+         $small = Modulechapter::where('status','active')->where('module_id',$module->id)->orderBy('duration','ASC')->first();
+        if($small){
+            $small = $small->duration;
+        }else{
+            $small = 0;
+        }
         $chapters = Modulechapter::where('status','active')->where('module_id',$module->id)->take(50)->get();
+
+        //update history
+            $uh = Modulehistory::where('user_id',Auth::id())->where('module_id',$module->id)->first();
+            if(!$uh){
+                $iuh = new Modulehistory();
+                $iuh->user_id = Auth::id();
+                $iuh->module_id = $module->id;
+                $iuh->viewed_date = date('Y-m-d');
+                $iuh->completed_status = 'no';
+                $iuh->save();
+            }
+        //update history
+
         return view('frontend.module-details',compact('module','totalminutes','chapters','small','large'));
     }
 
@@ -202,7 +227,55 @@ class FrontendController extends Controller
              return back();
         }
         $chapters = Modulechapter::where('status','active')->where('module_id',$module->id)->take(50)->get();
+
+
+         //update history
+            $uh = Modulechapterhistory::where('user_id',Auth::id())->where('module_id',$module->id)->where('chapter_id',$chapter->id)->first();
+            if(!$uh){
+                $iuh = new Modulechapterhistory();
+                $iuh->user_id = Auth::id();
+                $iuh->module_id = $module->id;
+                $iuh->chapter_id = $chapter->id;
+                $iuh->viewed_date = date('Y-m-d');
+                $iuh->completed_status = 'no';
+                $iuh->save();
+            }
+        //update history
+
         return view('frontend.module-chapter',compact('module','chapter','chapters'));
+    }
+
+    public function modulechapterhistoryupdate(Request $req){
+        try{
+            if(!Auth::check()){
+                 return response()->json(['status'=>'error','msg'=>'Login required']);
+            }
+            $module_id = decrypt($req->get('module_id'));
+            $chapter_id = decrypt($req->get('chapter_id'));
+            $uc = Modulechapterhistory::where('user_id',Auth::id())->where('module_id',$module_id)->where('chapter_id',$chapter_id)->where('completed_status','!=','yes')->first();
+            if($uc){
+                $uc->completed_status = 'yes';
+                $uc->completed_date = date('Y-m-d');
+                $uc->total_duration = $req->get('duration');
+                $uc->save();
+
+                $total_chapter = Modulechapter::where('module_id',$module_id)->where('id',$chapter_id)->count();
+                $completed_chapter = Modulechapterhistory::where('user_id',Auth::id())->where('module_id',$module_id)->count();
+                if($total_chapter == $completed_chapter){
+                    $um = Modulehistory::where('module_id', $module_id)->where('user_id', Auth::id())->first();
+                    if($um){
+                        $um->completed_date = date('Y-m-d');
+                        $um->completed_status = 'yes';
+                        $um->save();
+                    }
+                }
+                return response()->json(['status'=>'success','msg'=>'Updated']);
+            }else{
+                return response()->json(['status'=>'success','msg'=>'Already updated']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['status'=>'error','msg'=>$e->getMessage().'_'.$e->getLine()]);
+        }
     }
 
     public function savecertificate(Request $req){

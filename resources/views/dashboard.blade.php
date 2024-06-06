@@ -30,7 +30,7 @@
                       <div class="card-body">
                         <div class="mb-3"><img src="{!! URL::asset('backend/icon-01.svg') !!}"></div>
                         <h4>Total number of users of this Learning</h4>
-                        <h1>345</h1>
+                        <h1 id="total_user"></h1>
                       </div>
                     </div>
                   </div>
@@ -39,7 +39,7 @@
                       <div class="card-body">
                         <div class="mb-3"><img src="{!! URL::asset('backend/icon-02.svg') !!}"></div>
                         <h4>Total number of Modules covered</h4>
-                        <h1>345</h1>
+                        <h1 id="total_module"></h1>
                       </div>
                     </div>
                   </div>
@@ -73,93 +73,8 @@
                         </tr>
                       </thead>
 
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="dot-icon me-3"></div>
-                              <span>INTERSECTIONALITY - Chapter 1</span>
-                            </div>
-                          </td>
-                          <td align="center">100</td>
-                          <td align="center">45</td>
-                        </tr>
+                      <tbody id="chapter_perform_data">
+                        
                       </tbody>
                     </table>
                   </div>
@@ -173,28 +88,18 @@
                   <div class="card-body">
                     <div class="title mb-5">Overall completion rate</div>
 
-                    <div class="row d-flex align-items-center">
-                      <div class="col-md-6">
-                        <div class="d-flex align-items-start mb-4">
-                          <div class="dot-icon-two me-3"></div>
-                          <div class="dot-icon-two-info">
-                            <h3>Module 1</h3>
-                            <h2>90%</h2>
-                          </div>
-                        </div>
+                      <div class="row d-flex align-items-center">
+                      <div class="col-md-6" id="module_completion">
+                       
 
-                        <div class="d-flex align-items-center">
-                          <div class="dot-icon-two me-3"></div>
-                          <div class="dot-icon-two-info">
-                            <h3>Module 2</h3>
-                            <h2>70%</h2>
-                          </div>
-                        </div>
+                       
                       </div>
 
                       <div class="col-md-6">
                         <div class="text-center">
-                          <img src="{!! URL::asset('backend/stats-01.png') !!}">
+
+                          <div class="overall_com_rate" data-percent="73"><span id="overall_com_box">73</span>%</div>
+
                         </div>
                       </div>
                     </div>
@@ -237,6 +142,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/helpers.esm.min.js"></script>
 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
+
 <script>
 
 getdashboardinfo();
@@ -250,28 +157,42 @@ function getdashboardinfo(){
     success: function(res){
       if(res.status == 'success'){
           data = res.data;
-          $('.today_count').text(data.today_count);
-          $('.thismonth_count').text(data.thismonth_count);
-          $('.lastsix_count').text(data.lastsix_count);
-          $('.last12month_count').text(data.last12month_count);
+          $('#total_user').text(data.total_user);
+          $('#total_module').text(data.total_module);
+          $('#chapter_perform_data').html(data.chapter_perform_data);
+          $('#module_completion').html(data.module_completion);
+          $('#overall_com_box').text(data.overall_completion_percentage);
+          overall_completion_per();
 
-          $('.today_trans').text(data.today_trans);
-          $('.thismonth_trans').text(data.thismonth_trans);
-          $('.lastsix_trans').text(data.lastsix_trans);
-          $('.last12month_trans').text(data.last12month_trans);
+          // $('.today_trans').text(data.today_trans);
+          // $('.thismonth_trans').text(data.thismonth_trans);
+          // $('.lastsix_trans').text(data.lastsix_trans);
+          // $('.last12month_trans').text(data.last12month_trans);
 
-          $('.coruser_count').text(data.coruser_count);
-          $('.prouser_count').text(data.prouser_count);
-          $('.reg_count').text(data.reg_count);
+          // $('.coruser_count').text(data.coruser_count);
+          // $('.prouser_count').text(data.prouser_count);
+          // $('.reg_count').text(data.reg_count);
 
-          salestranssummarychart(data.sales_count_label,data.sales_count_data);
-          salestkesummarychart(data.sales_count_label,data.sales_tktcount_data);
+          // salestranssummarychart(data.sales_count_label,data.sales_count_data);
+          // salestkesummarychart(data.sales_count_label,data.sales_tktcount_data);
           // activitychart(data.topsalesitemlabel,data.topsalesitemdata);
           // regchart(data.sales_count_label,data.sales_regcount_data);
       }
     }, error: function(e){
       console.log(e.responseText());
     }
+  });
+}
+
+function overall_completion_per(){
+   $('.overall_com_rate').easyPieChart({
+    size: 160,
+    barColor: "#17d3e6",
+    scaleLength: 0,
+    lineWidth: 15,
+    trackColor: "#373737",
+    lineCap: "circle",
+    animate: 2000,
   });
 }
 

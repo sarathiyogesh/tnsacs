@@ -9,6 +9,11 @@ use Session;
 use Mail;
 use Validator;
 use App\Models\User;
+use App\Models\Modules;
+use App\Models\Modulechapter;
+use App\Models\Modulehistory;
+use App\Models\Modulechapterhistory;
+
 use App\Models\LaConfig;
 use App\Models\Phonecode;
 use App\Models\UserProfile;
@@ -68,122 +73,61 @@ class CommonController extends Controller
 
 
     public function getdashboardinfo(){
-        //sales count summary
-            $todayDate = date('Y-m-d');
-            $currentMontFirst = date('Y-m-01');
-            $psmonth = date('Y-m-01',strtotime("-6 month"));
-            $ptmonth = date('Y-m-01',strtotime("-12 month"));
-
-            
-        //Today Details
-        $today_course = Purchasecoursemeta::where('purchase_date', date('Y-m-d'))->where('booking_status', 'completed');
-        $today_course_count = $today_course->count();
-        $today_course_amount = $today_course->sum('total_amount');
-
-
-        //Current Month Details
-        $start_date = date('Y-m-01');
-        $end_date = date('Y-m-t');
-        $current_month_course = Purchasecoursemeta::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date)->where('booking_status', 'completed');
-        $current_month_course_count = $current_month_course->count();
-        $current_month_course_amount = $current_month_course->sum('total_amount');
-
-
-        //Last 6 Month Details
-        $start_date = date("Y-m-d", strtotime("-6 months", time()));
-        $end_date = date('Y-m-d');
-        $six_month_course = Purchasecoursemeta::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date)->where('booking_status', 'completed');
-        $six_month_course_count = $six_month_course->count();
-        $six_month_course_amount = $six_month_course->sum('total_amount');
-
-        //Last 1 Year Details
-        $start_date = date("Y-m-d", strtotime("-12 months", time()));
-        $end_date = date('Y-m-d');
-        $year_course = Purchasecoursemeta::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date)->where('booking_status', 'completed');
-        $year_course_count = $year_course->count();
-        $year_course_amount = $year_course->sum('total_amount');
-
-        $institutions = User::where('status', 'active')->where('type', 'institution')->count();
-        $faculties = User::where('status', 'active')->where('type', 'faculty')->count();
-        $students = User::where('status', 'active')->where('type', 'student')->count();
-
-        //chart
-            $pre6month = [];
-            $pre6monthname = [];
-            $pre6monthtranscount = [];
-            $pre6monthbookcount = [];
-            $pre6monthregcount = [];
-            for ($i = 0; $i < 6; $i++) {
-              $start = date('Y-m-01', strtotime(-$i . 'month'));
-              $end = date('Y-m-t', strtotime(-$i . 'month'));
-              $pre6month[$i]['start'] = $start;
-              $pre6month[$i]['end'] = $end;
-              $pre6monthname[$i] = date('M y', strtotime(-$i . 'month'));
-            }
-            $i = 0;
-            $pre6month = array_reverse($pre6month);
-            $pre6monthname = array_reverse($pre6monthname);
-            foreach($pre6month as $mon){
-                $count = Purchasecoursemeta::where('booking_status','completed');
-                $count = $count->whereBetween('purchase_date',array($mon['start'],$mon['end']));
-                $count = $count->sum('total_amount');
-                $pre6monthtranscount[$i] = $count;
-
-                $bookcount = Purchasecoursemeta::where('booking_status','completed');
-                $bookcount = $bookcount->whereBetween('purchase_date',array($mon['start'],$mon['end']));
-                $bookcount = $bookcount->count();
-                $pre6monthbookcount[$i] = $bookcount;
-
-                $treg_count = DB::table('users as u')
-                ->whereBetween('u.created_at',array($mon['start'],$mon['end']))
-                ->count();
-                $pre6monthregcount[$i] = $treg_count;
-                $i++;
-            }
-        //chart
-
-      // $topsalesitemlabel = [];
-      // $topsalesitemdata = [];
-      //  try{
-      //   //  $topsalesitem = DB::table('bookingreportmeta')
-      //   // ->selectRaw('COALESCE(sum(item_id),0) total','activityName')
-      //   // ->orderBy('total','desc')
-      //   // ->take(10)
-      //   // ->get();
-      //   $topsalesitem = Bookingreportmeta::select(DB::raw('COUNT(activity_id) as cnt'),'activityName')->groupBy('activity_id','activityName')->orderBy('cnt', 'DESC')->take(5)->get();
-      //   $i = 0;
-      //   foreach($topsalesitem as $item){
-      //       $topsalesitemlabel[$i] = $item->activityName;
-      //       $topsalesitemdata[$i] = $item->cnt;
-      //       $i++;
-      //   }
-      //  }catch(\Exception $e){
-      //       //return $e->getMessage();
-      //  }
-
         $data = [];
+        $data['total_user'] = User::where('status','active')->where('type','online')->count();
+        $data['total_module'] = Modules::where('status','active')->count();
 
-        $data['today_count'] = $today_course_count;
-        $data['thismonth_count'] = $current_month_course_count;
-        $data['lastsix_count'] = $six_month_course_count;
-        $data['last12month_count'] = $year_course_count;
 
-        $data['today_trans'] = 'INR '.$this->custom_number_format($today_course_amount,2);
-        $data['thismonth_trans'] = 'INR '.$this->custom_number_format($current_month_course_amount,2);
-        $data['lastsix_trans'] = 'INR '.$this->custom_number_format($six_month_course_amount,2);
-        $data['last12month_trans'] = 'INR '.$this->custom_number_format($year_course_amount,2);
+        $chapter = Modulechapterhistory::select(DB::raw('COUNT(module_chapter_user_history.chapter_id) as chapter_count'),'chapter_id')
+        ->groupBy('chapter_id')
+        ->orderBy('chapter_count')
+        ->take(5)
+        ->get();
+        
+        $chapter_template = '';
+        foreach($chapter as $chap){
+            $name = Modulechapter::getname($chap->chapter_id);
+            $visitor_count = Modulechapterhistory::where('chapter_id',$chap->chapter_id)->count();
+            $completed_count = Modulechapterhistory::where('completed_status','yes')->where('chapter_id',$chap->chapter_id)->count();
+            $chapter_template = $chapter_template.' <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="dot-icon me-3"></div>
+                              <span>'.$name.'</span>
+                            </div>
+                          </td>
+                          <td align="center">'.$visitor_count.'</td>
+                          <td align="center">'.$completed_count.'</td>
+                        </tr>';
+        }
+        $data['chapter_perform_data'] = $chapter_template;
 
-        $data['coruser_count'] = $faculties;
-        $data['prouser_count'] = $students;
-        $data['reg_count'] = $institutions;
-
-        $data['sales_count_label'] = $pre6monthname;
-        $data['sales_count_data'] = $pre6monthtranscount;
-        $data['sales_tktcount_data'] = $pre6monthbookcount;
-        $data['sales_regcount_data'] = $pre6monthregcount;
-
-        // $data['topsalesitemlabel'] = $topsalesitemlabel;
-        // $data['topsalesitemdata'] = $topsalesitemdata;
+        $modules = Modules::where('status','active')->take(5)->get();
+        $module_completion_template = '';
+        foreach($modules as $mo){
+            $total_module_c = Modulehistory::where('module_id',$mo->id)->where('completed_status','yes')->count();
+            if($total_module_c != 0 && $data['total_module'] != 0){
+                $percentage = ($total_module_c / $data['total_user']) * 100;
+            }else{
+                $percentage = 0;
+            }
+            $name = Modules::getmodulename($mo->id);
+            $percentage = $percentage;
+            $module_completion_template = $module_completion_template.' <div class="d-flex align-items-start mb-4">
+                          <div class="dot-icon-two me-3"></div>
+                          <div class="dot-icon-two-info">
+                            <h3>'.$name.'</h3>
+                            <h2>'.$percentage.'%</h2>
+                          </div>
+                        </div>';
+        }
+        $total_module_completed = Modulehistory::where('completed_status','yes')->groupBy('user_id','module_id')->count();
+        if($data['total_user'] != 0 && $total_module_completed != 0){
+            $data['overall_completion_percentage'] = ($total_module_completed / $data['total_user']) * 100;
+        }else{
+            $data['overall_completion_percentage'] = 0;
+        }
+        $data['module_completion'] = $module_completion_template;
 
         return response()->json(['status'=>'success','data'=>$data]);
     }

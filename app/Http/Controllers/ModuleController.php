@@ -136,6 +136,32 @@ class ModuleController extends Controller
         return response()->json(['status'=>'success','msg'=>'New chapter added successfully']);
     }
 
+    public function updatemodulechapter(Request $req){
+        $input = $req->all();
+        $record = Modules::find($input['editid']);
+        if(!$record){
+            return response()->json(['status'=>'error','msg'=>'Record not found']);
+        }
+        $chapter = Modulechapter::find($input['chapter_id']);
+        if(!$chapter){
+            return response()->json(['status'=>'error','msg'=>'Record not found']);
+        }
+         $rules =[
+            'title' => 'required',
+            'duration' => 'required|integer',
+            'url' => 'required'
+        ];
+        $validation = Validator::make($input, $rules);
+         if($validation->fails()){
+            return response()->json(['status'=>'error','msg'=>$validation->messages()->first()]);
+        }
+        $chapter->title = $input['title'];
+        $chapter->duration = $input['duration'];
+        $chapter->video_url = $input['url'];
+        $chapter->save();
+        return response()->json(['status'=>'success','msg'=>'Chapter updated successfully']);
+    }
+
     public function certificates(){
         return view('modules.certificate-view');
     }
