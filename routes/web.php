@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('testing', 'CommonController@testing');
 
+Route::get('samplepdf', 'CommonController@samplepdf');
+
 Route::get('/', 'FrontendController@index');
 Route::redirect('/index', '/');
 

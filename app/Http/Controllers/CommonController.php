@@ -32,7 +32,7 @@ use Hash;
 use App\Exports\SubscriberExport;
 use App\Exports\CorporateUsersExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Purchasecoursemeta;
 
 class CommonController extends Controller
@@ -64,6 +64,10 @@ class CommonController extends Controller
             $message->to('sarathinnce@gmail.com')->subject('Test Mail');
         });
         return 'succcess';
+    }
+
+    public function samplepdf(){
+        return $pdf = PDF::loadView('frontend.certificate_pdf',array('data'=>''))->stream('sample.pdf');
     }
     
     public function dashboard(){
