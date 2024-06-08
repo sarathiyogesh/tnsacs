@@ -11,6 +11,7 @@
 			   </th>
 			   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Name</th>
 			   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Email</th>
+			   <th class="min-w-200px" tabindex="0" rowspan="1" colspan="1">Created On</th>
 			   <th>Status</th>
 			</tr>
 			<!--end::Table row-->
@@ -29,6 +30,7 @@
 						</td>
 						<td>{{ $record->name }}</td>
 						<td>{!! $record->email !!}</td>
+						<td>{!! date('d-M-Y', strtotime($record->created_at)) !!}</td>
 						<td>
 							<a href="javascript:;" class="btn {{ $record->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! $record->status !!}</a>
 						</td>
