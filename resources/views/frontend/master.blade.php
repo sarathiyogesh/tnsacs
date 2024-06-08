@@ -7,7 +7,7 @@
         <meta name="author" content="Tamil Nadu state AIDS control society">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
+        <meta name="_token" content="{!! csrf_token() !!}" />
         <!-- Favicons -->
         <link rel="shortcut icon" href="{{ asset('/frontend/images/favicon.png') }}">
 
@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="{{ asset('/frontend/css/owl.carousel.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/slick/slick.css') }}"> 
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        @yield('styles')
         <style type="text/css">
             .help-block{
                 color: red;

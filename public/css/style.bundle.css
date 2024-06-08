@@ -48535,3 +48535,79 @@ ul.rb li .timestamp .date {
 .actionLink:hover {
   color: #fff;
 }
+.card-info {
+  border-radius: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.card-info h4 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #64748B;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.card-info h1 {
+  font-size: 45px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 0;
+}
+.card-info .title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0;
+}
+.card-info p {
+  color: #8F95B2;
+}
+.dot-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #A80000;
+  border-radius: 8px;
+}
+.dot-icon-two {
+  width: 30px;
+  height: 30px;
+  background-color: #A80000;
+  border-radius: 50px;
+}
+.dot-icon-two-info h3 {
+  font-size: 15px;
+  color: #A5AAB5;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.dot-icon-two-info h2 {
+  font-size: 15px;
+  color: #000;
+  font-weight: 700;
+}
+.card-info-two {
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  padding: 15px;
+}
+.card-info-two h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4B4B4B;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+.card-info-two .count {
+  color: #4B4B4B;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+.card-info-two .desc {
+  color: #4B4B4B;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+.mh-set1 {
+  min-height: 310px;
+}

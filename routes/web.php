@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('testing', 'CommonController@testing');
 
+Route::get('samplepdf', 'CommonController@samplepdf');
+
 Route::get('/', 'FrontendController@index');
 Route::redirect('/index', '/');
 
 Route::get('/modules', 'FrontendController@modules');
 Route::get('/module-details/{slug}', 'FrontendController@moduledetails');
 Route::get('/module-chapter/{slug}/{id}', 'FrontendController@modulechapter');
+Route::post('/module/chapter/history/update', 'FrontendController@modulechapterhistoryupdate');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/logout', 'FrontendController@logout');
@@ -103,6 +106,8 @@ Route::group(['middleware' => ['auth.admin']], function() {
     Route::get('admin/module/edit/{id}', [ 'as' => 'admin.module.edit', 'uses' => 'ModuleController@moduleedit']);
     Route::post('admin/module/update', [ 'as' => 'admin.module.update', 'uses' => 'ModuleController@moduleupdate']);
     Route::post('admin/module/chapter/add', [ 'as' => 'admin.module.chapter.add', 'uses' => 'ModuleController@addmodulechapter']);
+
+    Route::post('admin/module/chapter/update', [ 'as' => 'admin.module.chapter.update', 'uses' => 'ModuleController@updatemodulechapter']);
 
     Route::get('/admin/certificates', [ 'as' => 'module.certificates', 'uses' => 'ModuleController@certificates']);
     Route::get('/admin/certificates/list', [ 'as' => 'module.certificates.list', 'uses' => 'ModuleController@certificateslist']);

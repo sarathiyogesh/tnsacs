@@ -16,9 +16,24 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="chapter_id" id="chapter_id" value="{{encrypt($chapter->id)}}">
+                <input type="hidden" name="module_id" id="module_id" value="{{encrypt($module->id)}}">
+
                 <div class="row mb-50">
                     <div class="col-md-12">
-                        <img src="{{ asset('frontend/images/player-placeholder.png') }}" class="img-fluid">
+                        @if($chapter->video_url)
+                        <video
+                    id="my-video"
+                    class="video-js"
+                    controls
+                    width="1200"
+                    height="600"
+                    data-setup="{}"
+                  >
+                    <source src="{{$chapter->video_url}}" type="video/mp4" />
+                  </video>
+                  @endif
+
                     </div>
                 </div>
 
@@ -71,4 +86,43 @@
             </div>
         </section>
     </main>
+@endsection
+
+@section('scripts')
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
+    <script type="text/javascript">
+         @if($chapter->video_url)
+         var myPlayer = videojs('my-video');
+         myPlayer.options({ enableSmoothSeeking: true, disablePictureInPicture: true });
+        var interval;
+        interval = setInterval(function(){
+            var totalTime = myPlayer.duration();
+            var currentTime = myPlayer.currentTime();
+            var remainTime = totalTime - currentTime;
+            if(remainTime <= 25){
+                clearInterval(interval);
+                updatechapterhistory();
+
+            }
+        }, 2000);
+
+        function updatechapterhistory(totalTime){
+            var module_id = $('#module_id').val();
+            var chapter_id = $('#chapter_id').val();
+            $.ajax({
+               url:"{{ url('module/chapter/history/update') }}",
+               data: { module_id: module_id, chapter_id: chapter_id,duration: totalTime  },
+               type:"POST",
+               headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),},
+                success: function(res){
+                   
+                },error: function(e){
+                    
+                }
+           });
+        }
+        @endif
+    </script>
 @endsection

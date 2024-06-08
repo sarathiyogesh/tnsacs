@@ -133,7 +133,10 @@
 												<a href="javascript:;" class="btn {{ $chapter->status == 'active'?'btn-success':'btn-danger' }} btn-xs">{!! ucfirst($chapter->status) !!}</a>
 											</td>
 											<td>
-												<a href="javascript:;" class="actionLink"><i class="las la-edit"></i> Edit</a>
+												<input type="hidden" id="title_{{$chapter->id}}" value="{{$chapter->title}}">
+												<input type="hidden" id="duration_{{$chapter->id}}" value="{{$chapter->duration}}">
+												<input type="hidden" id="url_{{$chapter->id}}" value="{{$chapter->video_url}}">
+												<a href="javascript:;" class="actionLink editBtn" data-id="{{$chapter->id}}"><i class="las la-edit"></i> Edit</a>
 											</td>
 										</tr>
 									@endforeach
@@ -156,7 +159,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLabel">Add Chapter</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -187,8 +190,53 @@
 
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		        <button type="button" class="btn btn-primary" id="addChapterBtn">Add</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+
+	<div class="modal fade " id="editChapterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Edit Chapter</h5>
+		        <button type="button" class="close data-bs-dismiss" data-bs-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <input type="hidden" name="e_edit_id" id="e_edit_id" value="">
+		        <div class="col-md-12">
+					<div class="form-group">
+						<label class="required form-label">Title</label>
+						<input type="text" name="e_chapter_title" id="e_chapter_title" class="form-control mb-2" placeholder="title" value="">
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="required form-label">Duration (In minutes)</label>
+						<input type="text" name="e_chapter_duration" id="e_chapter_duration" class="form-control mb-2" placeholder="Duration" value="">
+						<em>Enter value in minutes</em>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="required form-label">URL</label>
+						<input type="text" name="e_chapter_video_url" id="e_chapter_video_url" class="form-control mb-2" placeholder="URL" value="">
+					</div>
+				</div>
+
+
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="updateChapterBtn">Update</button>
 		      </div>
 		    </div>
 		  </div>
@@ -207,6 +255,15 @@
 
 		$('#addChapterBox').on('click', function(){
 			$('#addChapterModal').modal('show');
+		});
+
+		$('.editBtn').on('click', function(){
+			var id = $(this).attr('data-id');
+			$('#e_chapter_title').val($('#title_'+id).val());
+			$('#e_chapter_duration').val($('#duration_'+id).val());
+			$('#e_chapter_video_url').val($('#url_'+id).val());
+			$('#e_edit_id').val(id);
+			$('#editChapterModal').modal('show');
 		});
 
 
@@ -229,6 +286,40 @@
                     if(res.status == 'success'){
                     	alert('New chapter added successfully');
                     	$('#addChapterModal').modal('hide');
+                    	location.reload();
+                    	//getTable();
+                    }else if(res.status == 'error'){
+                    	alert(res.msg);
+                    }else if(res.status == 'validation'){
+                    	alert(res.msg);
+                    }
+                    return false;
+                },error: function(e){
+                	t.text(ctxt).prop('disabled', false);;
+                	alert(e.responseText);
+                }
+            });
+		});
+
+		$(document).on('click', '#updateChapterBtn', function (){
+			var t = $(this); ctxt = t.text();
+			t.text('Processing...').prop('disabled', true);
+			var title = $('#e_chapter_title').val();
+			var duration = $('#e_chapter_duration').val();
+			var url = $('#e_chapter_video_url').val();
+			var editid = $('#editid').val();
+			var chapter_id = $('#e_edit_id').val();
+			$.ajax({
+                url:"{{ url('admin/module/chapter/update') }}",
+                dataType: 'json',
+				headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'), },
+                data: { title: title, duration:duration, url: url,editid: editid,chapter_id:chapter_id },
+                type:"POST",
+                success: function(res){
+                	t.text(ctxt).prop('disabled', false);;
+                    if(res.status == 'success'){
+                    	alert('Chapter updated successfully');
+                    	$('#editChapterModal').modal('hide');
                     	location.reload();
                     	//getTable();
                     }else if(res.status == 'error'){
