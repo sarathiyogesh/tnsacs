@@ -19,7 +19,7 @@ html, body {
     margin: 0;                
 }
 .background {
-  background-image: url('http://tnsacs.test/frontend/images/certificate-min.jpg');
+  background-image: url('frontend/images/certificate-min.jpg');
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
