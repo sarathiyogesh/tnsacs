@@ -67,7 +67,7 @@ class CommonController extends Controller
     }
 
     public function samplepdf(){
-        return $pdf = PDF::loadView('frontend.certificate_pdf',array('data'=>''))->stream('sample.pdf');
+        return $pdf = PDF::loadView('frontend.certificate_pdf',array('data'=>''))->setPaper('a4', 'landscape')->stream('sample.pdf');
     }
     
     public function dashboard(){
