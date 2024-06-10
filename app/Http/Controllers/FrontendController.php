@@ -20,6 +20,7 @@ use App\Models\Modulechapter;
 use App\Models\Certificate;
 use App\Models\Modulehistory;
 use App\Models\Modulechapterhistory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FrontendController extends Controller
 {
@@ -90,6 +91,9 @@ class FrontendController extends Controller
     }
 
     public function login(){
+        if(Auth::check()){
+            return redirect('');
+        }
         return view('frontend.login');
     }
 
@@ -284,13 +288,24 @@ class FrontendController extends Controller
     }
 
     public function savecertificate(Request $req){
+        if(!Auth::check()){
+            return response()->json(['status'=>'error','msg'=>'Login required']);
+        }
         $input = $req->all();
         $rules = ['first_name' => 'required', 'last_name' => 'required', 'gender' => 'required', 'address' => 'required'];
         $validation = Validator::make($input, $rules);
         if($validation->fails()){
             return response()->json(['status' => 'error', 'msg' => $validation->messages()->first()]);
         }
-
+        $total_chapter = Modulechapter::where('status','active')->where('module_id',$input['module_id'])->count();
+        $completed_chapter = Modulechapterhistory::where('user_id',Auth::id())->where('module_id',$input['module_id'])->count();
+        $if_download = 'no';
+        if($total_chapter != 0 && $total_chapter == $completed_chapter){
+            $if_download = 'yes';
+        }
+        if($if_download != 'yes'){
+            return response()->json(['status'=>'error','msg'=>'Please complete all chapter and download certificatie']);
+        }
         $new = new Certificate();
         $new->first_name = $input['first_name'];
         $new->last_name = $input['last_name'];
@@ -299,7 +314,28 @@ class FrontendController extends Controller
         $new->module_id = $input['module_id'];
         $new->save();
 
-        return response()->json(['status' => 'success', 'msg' => 'Certificate details has been submitted successfully']);
+        $name = $new->first_name.' '.$new->last_name;
+        $unique_id = time().'_'.$new->id;
+
+        $new->unique_id = $unique_id;
+        $new->save();
+
+        
+
+        $html = view('frontend.module_certificate')->with('name',$name)->render();
+        \File::put(public_path().'/'.$unique_id.'.html',$html);
+        $pdf = PDF::loadHTML($html);
+        $pdf->save(public_path().'/'.$unique_id.'.pdf');
+
+        $url = \URL::to("certificatie/download/".$unique_id);
+        return response()->json(['status' => 'success', 'msg' => 'Certificate ready to download','url'=>$url]);
+    }
+
+    public function downloadcertificate(Request $req,$unique_id){
+        if(!Auth::check()){
+            return redirect('');
+        }
+        return response()->download(public_path().'/'.$unique_id.'.pdf');
     }
 
 

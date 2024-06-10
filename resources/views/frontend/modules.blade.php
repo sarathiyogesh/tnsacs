@@ -1,6 +1,7 @@
 <?php 
     use App\Models\Modules;
     use App\Models\Modulechapter;
+    use App\Models\Modulechapterhistory;
      use App\Models\Media;
 ?>
 @extends('frontend.master')
@@ -54,6 +55,11 @@
                                 <button type="button" id="submit_certificate" class="btn btn-mod btn-red btn-circle btn-medium">Submit</button>
                             </div>
                         </form>
+
+                        <div id="download_pdf_box" style="display:none;">
+                            
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -84,6 +90,12 @@
                                         @foreach($modules as $module)
                                         <?php 
                                             $totalminutes = Modulechapter::where('status','active')->where('module_id',$module->id)->sum('duration');
+                                            $total_chapter = Modulechapter::where('status','active')->where('module_id',$module->id)->count();
+                                            $completed_chapter = Modulechapterhistory::where('user_id',Auth::id())->where('module_id',$module->id)->count();
+                                            $if_download = 'no';
+                                            if($total_chapter != 0 && $total_chapter == $completed_chapter){
+                                                $if_download = 'yes';
+                                            }
                                         ?>
                                         <div class="col-md-6">
                                             <div class="module-list">
@@ -101,7 +113,9 @@
                                                         <div class="timeline mt-10 mb-10"><b>{{Modules::gethourandmin($totalminutes)}}</b></div>
                                                         <div>
                                                             <a href="{{ url('module-details/'.$module->slug) }}" class="btn btn-mod btn-red btn-circle btn-small">Start Now</a>
-                                                            <a href="javascript:;" data-id="{{$module->id}}" id="view_certificate_modal" class="btn btn-mod btn-border btn-circle btn-small">Download Certificate</a>
+
+                                                            <a href="javascript:;" data-id="{{$module->id}}" id="view_certificate_modal" data-download="{{$if_download}}" class="btn btn-mod btn-border btn-circle btn-small view_certificate_modal">Download Certificate</a>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,22 +137,35 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(document).on('click', '#view_certificate_modal', function(){
+        $(document).on('click', '.view_certificate_modal', function(){
             $('.errorMessage').html('').hide();
             $('.successMessage').html('').hide();
             var module_id = $(this).attr('data-id');
+            var download = $(this).attr('data-download');
+            if(download != 'yes'){
+                alert('Please complete all chapter and download certificatie');
+                return false;
+            }
+            $('#certificate_form').show();
+            $('#download_pdf_box').html('').hide();
             $('#module_id').val(module_id);
             $('#downloadCertificate').modal('show');
             return false;
         });
 
+        $(document).on('click','.downloadpdflink', function(){
+            $('#downloadCertificate').modal('hide');
+        });
+
         $(document).on('click', '#submit_certificate', function(){
+            var th = $(this);
+            txt = th.text();
+            th.text('Processing....').attr("disabled", true);
             var first_name = $('#first_name').val();
             var last_name = $('#last_name').val();
             var gender = $('input[name="gender"]:checked').val();
             var address = $('#address').val();
             var module_id = $('#module_id').val();
-
             $.ajax({
                 url: '/certificatie/post',
                 data: { first_name: first_name, last_name: last_name, gender:gender, address: address, module_id: module_id },
@@ -147,12 +174,17 @@
                 success: function(res){
                     if(res.status == 'success'){
                         $('#certificate_form')[0].reset();
-                        $('#downloadCertificate').modal('hide');
+                        //$('#downloadCertificate').modal('hide');
+                        $('#certificate_form').hide();
+                        $('#download_pdf_box').html('<a href="'+res.url+'" target="_blank" class="btn btn-primary btn-sm downloadpdflink">Download Certificate</a>').show();
+                        th.text(txt).attr("disabled", false);
                         alert(res.msg);
                     }else{
+                        th.text(txt).attr("disabled", false);
                         $('.errorMessage').html(res.msg).show();
                     }
                 }, error: function(e){
+                  th.text(txt).attr("disabled", false);
                   console.log(e.responseText());
                 }
               });
