@@ -61,6 +61,17 @@
 									</div>
 								</div>
 
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="required form-label">Short Description</label>
+										<textarea name="short_description" id="short_description" class="form-control mb-2" rows="3">{!! old('short_description', $record->short_description) !!}</textarea>
+										@if($errors->has("short_description"))
+											<span id="short_description-error" class="help-block">{!! $errors->first("short_description") !!}</span>
+										@endif
+									</div>
+								</div>
+
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="required form-label">Post Description</label>
@@ -130,6 +141,7 @@
 			format: 'dd-mm-yyyy'
 		});
 		CKEDITOR.replace('description');
+		CKEDITOR.replace('short_description');
 	});
 
 	function loadImg(){

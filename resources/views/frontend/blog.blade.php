@@ -24,7 +24,32 @@
 
 
                 <div class="row">
-                    <div class="col-md-4">
+
+                    @foreach($blogs as $blog)
+                            <!--Repeat Post-->
+                            <div class="col-md-4">
+                            <div class="blogPost">
+                                <div class="post-prev-img">
+                                    <a href="javascript:;"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
+                                </div>
+                                <div class="post-prev-title mb-10 font-alt">
+                                    {!! $blog->title !!}
+                                </div>
+                                <div class="post-prev-text">
+                                    {!! substr($blog->short_description, 0, 100) !!}...
+                                </div>
+                                <div class="post-prev-info">
+                                    {!! date('D F d Y', strtotime($blog->date)) !!}
+                                </div>
+                                <div class="mt-20">
+                                    <a href="/blog/{{$blog->slug}}" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Repeat Post-->
+                        @endforeach
+
+                  <!--   <div class="col-md-4">
                         <div class="blogPost">
                             <div class="post-prev-img">
                                 <a href="javascript:;"><img src="http://tnsacs.test/backend/uploads/media/blog_01.jpg" alt=""></a>
@@ -83,7 +108,7 @@
                                 <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium" tabindex="0">Read more</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>

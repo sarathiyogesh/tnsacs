@@ -30,11 +30,17 @@ class FrontendController extends Controller
     }
 
     public function blogpage(){
-        return view('frontend.blog');
+        $blogs = Blog::where('status', 'active')->latest()->take(100)->get();
+        return view('frontend.blog',compact('blogs'));
     }
 
-    public function blogdetails(){
-        return view('frontend.blog-details');
+    public function blogdetails($slug){
+        $blog = Blog::where('status', 'active')->where('slug',$slug)->first();
+        if(!$blog){
+            return back();
+        }
+        $sugg_blogs = Blog::where('status', 'active')->where('id','!=',$blog->id)->latest()->take(3)->get();
+        return view('frontend.blog-details',compact('blog','sugg_blogs'));
     }
 
     public function signuppost(Request $req){

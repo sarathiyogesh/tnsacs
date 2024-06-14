@@ -134,6 +134,8 @@
 @endsection
 
 @section('scripts')
+<link rel="stylesheet" type="text/css" href="{!! asset('css/toastr.min.css') !!}">
+<script src="{!! asset('js/toastr.min.js') !!}"></script>
     <script type="text/javascript">
         $(document).on('click', '.view_certificate_modal', function(){
             $('.errorMessage').html('').hide();
@@ -141,7 +143,7 @@
             var module_id = $(this).attr('data-id');
             var download = $(this).attr('data-download');
             if(download != 'yes'){
-                alert('Please complete all chapter and download certificatie');
+                error_msg('Please complete all chapter and download certificatie');
                 return false;
             }
             $('#certificate_form').show();
@@ -176,7 +178,7 @@
                         $('#certificate_form').hide();
                         $('#download_pdf_box').html('<a href="'+res.url+'" target="_blank" class="btn btn-primary btn-sm downloadpdflink">Download Certificate</a>').show();
                         th.text(txt).attr("disabled", false);
-                        alert(res.msg);
+                        error_msg(res.msg);
                     }else{
                         th.text(txt).attr("disabled", false);
                         $('.errorMessage').html(res.msg).show();
@@ -187,5 +189,28 @@
                 }
               });
         });
+
+        function error_msg(msg){
+            toastr.clear();
+            toastr.options = {
+              "closeButton": false,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": false,
+              "positionClass": "toast-bottom-right",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "1000",
+              "hideDuration": "50",
+              "timeOut": "3000",
+              "extendedTimeOut": "100",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            }
+            toastr.error(msg);
+        }
+
     </script>
 @endsection

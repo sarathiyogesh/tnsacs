@@ -25,7 +25,7 @@ Route::get('/module-chapter/{slug}/{id}', 'FrontendController@modulechapter');
 Route::post('/module/chapter/history/update', 'FrontendController@modulechapterhistoryupdate');
 
 Route::get('/blog', 'FrontendController@blogpage');
-Route::get('/blog-details', 'FrontendController@blogdetails');
+Route::get('/blog/{slug}', 'FrontendController@blogdetails');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/logout', 'FrontendController@logout');

@@ -227,13 +227,13 @@
                                     {!! $blog->title !!}
                                 </div>
                                 <div class="post-prev-text">
-                                    {!! substr($blog->description, 0, 100) !!}...
+                                    {!! substr($blog->short_description, 0, 100) !!}...
                                 </div>
                                 <div class="post-prev-info">
                                     {!! date('D F d Y', strtotime($blog->date)) !!}
                                 </div>
                                 <div class="mt-20">
-                                    <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                                    <a href="/blog/{{$blog->slug}}" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
                                 </div>
                                 
                             </div>
