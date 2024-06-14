@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::get('certificatie/post', 'FrontendController@savecertificate');
+Route::get('certificatie/download/{unique_id}', 'FrontendController@downloadcertificate');
 
 Route::group(['middleware' => ['guest']], function() {
     Route::get('/signup', 'FrontendController@signup');
