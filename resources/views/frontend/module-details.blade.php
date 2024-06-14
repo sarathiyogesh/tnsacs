@@ -6,7 +6,7 @@
 @extends('frontend.master')
 @section('maincontent') 
     <main id="main">
-        <section class="small-section">
+        <section class="small-section pt-10">
             <div class="container relative">
                 <div class="row mb-40">
                     <div class="col-md-8">
@@ -125,4 +125,8 @@
             </div>
         </section>
     </main>
+@endsection
+
+@section('navigation')
+    @include('frontend.navigation')
 @endsection

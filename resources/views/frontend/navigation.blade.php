@@ -28,6 +28,7 @@
         <!-- Main Menu -->
         <div class="inner-nav desktop-nav">
             <ul class="mainmenu">
+                <li><a href="{{ url('/') }}">Home</a></li>
                 <li><a href="{{ url('/modules') }}">Modules</a></li>
                 <li><a href="{{ url('/modules') }}">Certificates</a></li>
                 <li><a href="javascript:;">Mobile App</a></li>

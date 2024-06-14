@@ -28,6 +28,14 @@ class FrontendController extends Controller
         return view('frontend.signup');
     }
 
+    public function blogpage(){
+        return view('frontend.blog');
+    }
+
+    public function blogdetails(){
+        return view('frontend.blog-details');
+    }
+
     public function signuppost(Request $req){
         $input = $req->all();
         $rules = ['fullname' => 'required', 'email' => 'required|email', 'password' => 'required|min:6'];

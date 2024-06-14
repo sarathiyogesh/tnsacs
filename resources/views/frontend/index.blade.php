@@ -128,7 +128,7 @@
                                 {!! Helpers::getcontent('section_4_28') !!}
                             </div>
                             <div class="downloadable">
-                                <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Get Your Certificate</a>
+                                <a href="{{ url('/modules') }}" class="btn btn-mod btn-red btn-circle btn-medium">Get Your Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -215,32 +215,34 @@
                         </div>
                     </div>
 
-                    <div class="row d-flex justify-content-between">
+
+                    <div class="item-carousel owl-carousel">
                         @foreach($blogs as $blog)
                             <!--Repeat Post-->
-                            <div class="col-md-3">
-                                <div class="blogPost">
-                                    <a href="javascript:;">
-                                        <div class="post-prev-img">
-                                            <img src="{{ Media::geturl($blog->feature_image) }}" alt="" />
-                                        </div>
-                                        <div class="post-prev-title mb-10 font-alt">
-                                            {!! $blog->title !!}
-                                        </div>
-                                        <div class="post-prev-text">
-                                            {!! substr($blog->description, 0, 100) !!}...
-                                        </div>
-                                        <div class="post-prev-info">
-                                            {!! date('D F d Y', strtotime($blog->date)) !!}
-                                        </div>
-                                        <div class="mt-20">
-                                            <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
-                                        </div>
-                                    </a>
+                            <div class="blogPost">
+                                <div class="post-prev-img">
+                                    <a href="javascript:;"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
                                 </div>
+                                <div class="post-prev-title mb-10 font-alt">
+                                    {!! $blog->title !!}
+                                </div>
+                                <div class="post-prev-text">
+                                    {!! substr($blog->description, 0, 100) !!}...
+                                </div>
+                                <div class="post-prev-info">
+                                    {!! date('D F d Y', strtotime($blog->date)) !!}
+                                </div>
+                                <div class="mt-20">
+                                    <a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                                </div>
+                                
                             </div>
-                            <!--End Repeat Post-->
+                        <!--End Repeat Post-->
                         @endforeach
+                    </div>
+
+                    <div class="more-blogs">
+                        <a href="{{ url('/blog') }}">View All</a>
                     </div>
 
                 </div>
