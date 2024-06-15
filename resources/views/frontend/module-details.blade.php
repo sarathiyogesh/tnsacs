@@ -28,7 +28,9 @@
                         </div>
 
                         <div class="timer mt-20 mb-20"><b>{{Modules::gethourandmin($totalminutes)}}</b></div>
-                        <div><a href="javascript:;" class="btn btn-mod btn-red btn-circle btn-medium">Start Now</a></div>
+                        @if(count($chapters) != 0)
+                            <div><a href="{{ url('module-chapter/'.$module->slug.'/'.$chapters[0]->id) }}" class="btn btn-mod btn-red btn-circle btn-medium">Start Now</a></div>
+                        @endif
 
 
                         <div class="bg-card mt-30">

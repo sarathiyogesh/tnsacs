@@ -27,7 +27,7 @@
 			<!--begin::Menu-->
 			<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
 				<div class="menu-item">
-					<a class="menu-link active" href="{{route('dashboard')}}">
+					<a class="menu-link {{Request::is('manage/console/dashboard') ? 'active' : '' }}" href="{{route('dashboard')}}">
 						<span class="menu-icon">
 							<i class="las la-home"></i>
 						</span>
@@ -43,7 +43,7 @@
 					</a>
 				</div> -->
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/online/users') }}">
+					<a class="menu-link {{Request::is('online/users') ? 'active' : '' }}" href="{{ url('/online/users') }}">
 						<span class="menu-icon">
 							<i class="las la-users"></i>
 						</span>
@@ -52,7 +52,7 @@
 				</div>
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/admin/modules') }}">
+					<a class="menu-link {{Request::is('admin/modules') ? 'active' : '' }} {{Request::is('admin/module/*') ? 'active' : '' }}" href="{{ url('/admin/modules') }}">
 						<span class="menu-icon">
 							<i class="las la-video"></i>
 						</span>
@@ -61,7 +61,7 @@
 				</div>
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/admin/certificates') }}">
+					<a class="menu-link {{Request::is('admin/certificates') ? 'active' : '' }}" href="{{ url('/admin/certificates') }}">
 						<span class="menu-icon">
 							<i class="las la-video"></i>
 						</span>
@@ -70,7 +70,7 @@
 				</div>
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/cms/page') }}">
+					<a class="menu-link {{Request::is('cms/*') ? 'active' : '' }}" href="{{ url('/cms/page') }}">
 						<span class="menu-icon">
 							<i class="las la-heading"></i>
 						</span>
@@ -80,7 +80,7 @@
 				
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ route('viewpost') }}">
+					<a class="menu-link {{Request::is('blogs/*') ? 'active' : '' }}" href="{{ route('viewpost') }}">
 						<span class="menu-icon">
 							<i class="las la-blog"></i>
 						</span>
@@ -89,7 +89,7 @@
 				</div>
 
 				<div class="menu-item">
-					<a class="menu-link" href="{{ url('/faqs') }}">
+					<a class="menu-link {{Request::is('faq/*') ? 'active' : '' }} {{Request::is('faqs') ? 'active' : '' }}" href="{{ url('/faqs') }}">
 						<span class="menu-icon">
 							<i class="las la-question"></i>
 						</span>
