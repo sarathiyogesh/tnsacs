@@ -221,7 +221,7 @@
                             <!--Repeat Post-->
                             <div class="blogPost">
                                 <div class="post-prev-img">
-                                    <a href="javascript:;"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
+                                    <a href="/blog/{{$blog->slug}}"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
                                 </div>
                                 <div class="post-prev-title mb-10 font-alt">
                                     {!! $blog->title !!}

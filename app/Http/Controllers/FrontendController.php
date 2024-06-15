@@ -39,7 +39,7 @@ class FrontendController extends Controller
         if(!$blog){
             return back();
         }
-        $sugg_blogs = Blog::where('status', 'active')->where('id','!=',$blog->id)->latest()->take(3)->get();
+        $sugg_blogs = Blog::where('status', 'active')->where('id','!=',$blog->id)->latest()->take(20)->get();
         return view('frontend.blog-details',compact('blog','sugg_blogs'));
     }
 
@@ -188,7 +188,7 @@ class FrontendController extends Controller
 
     public function index(){
         $faqs = Faq::where('status', 'active')->orderBy('id', 'ASC')->get();
-        $blogs = Blog::where('status', 'active')->latest()->take(3)->get();
+        $blogs = Blog::where('status', 'active')->latest()->take(10)->get();
         return view('frontend.index', compact('faqs', 'blogs'));
     }
 

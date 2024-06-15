@@ -48611,3 +48611,6 @@ ul.rb li .timestamp .date {
 .mh-set1 {
   min-height: 310px;
 }
+.mediacontainer {
+  height: 500px !important;
+}

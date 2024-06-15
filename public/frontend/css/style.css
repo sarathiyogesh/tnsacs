@@ -4825,10 +4825,10 @@ table.shopping-cart-table tr td{
     position: relative;
 }
 .owl-page span{
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     display: block;
-    background: rgba(255,255,255, .7);
+    background: #ddd;
     position: relative;
     z-index: 1000 !important;
     
@@ -4850,8 +4850,8 @@ table.shopping-cart-table tr td{
     background: rgba(255,255,255, 1);
 }
 .owl-page.active span{    
-    background: transparent;
-    bordeR: 1px solid rgba(255,255,255, .8);
+    background: #A80000;
+    border: 1px solid #A80000;
     
     -webkit-transform: scale(1.3333333);
     -moz-transform: scale(1.3333333);

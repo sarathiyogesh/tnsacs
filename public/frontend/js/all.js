@@ -682,7 +682,7 @@ function initPageSliders(){
         
         // Item carousel
         $(".item-carousel").owlCarousel({
-            autoPlay: 2500,
+            autoPlay: 5000,
             stopOnHover: false,
             items: 3,
             itemsDesktop: [1199, 3],

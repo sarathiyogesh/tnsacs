@@ -24,9 +24,10 @@
 		</div>
 		<!--end::Toolbar-->
 		<!--begin::Post-->
-		{!! Helpers::displaymsg() !!}
+		
 		<div class="post d-flex flex-column-fluid" id="kt_post">
 			<div id="kt_content_container" class="container-xxl">
+				{!! Helpers::displaymsg() !!}
 				<div class="card card-flush">
 					<div class="card-body">
 
