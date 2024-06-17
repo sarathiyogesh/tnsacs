@@ -45,7 +45,7 @@ class FrontendController extends Controller
 
     public function signuppost(Request $req){
         $input = $req->all();
-        $rules = ['fullname' => 'required', 'email' => 'required|email', 'password' => 'required|min:6'];
+        $rules = ['fullname' => 'required', 'email' => 'required|email|unique:users,email', 'password' => 'required|min:6'];
         $validation = Validator::make($input, $rules);
         if($validation->fails()){
             //return $validation->messages();
@@ -53,6 +53,7 @@ class FrontendController extends Controller
         }
 
         $otp = rand(10000, 99999);
+        $otp = 12345;
 
         $insert = new User();
         $insert->name = $input['fullname'];
