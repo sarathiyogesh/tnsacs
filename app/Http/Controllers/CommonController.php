@@ -60,6 +60,7 @@ class CommonController extends Controller
     // }
 
     public function testing(){
+        return \Hash::make('qwertyuiop');
         Mail::raw('Hello, this is a test mail!', function ($message) {
             $message->to('sarathinnce@gmail.com')->subject('Test Mail');
         });

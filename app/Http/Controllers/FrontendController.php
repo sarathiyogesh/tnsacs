@@ -45,17 +45,25 @@ class FrontendController extends Controller
 
     public function signuppost(Request $req){
         $input = $req->all();
-        $rules = ['fullname' => 'required', 'email' => 'required|email|unique:users,email', 'password' => 'required|min:6'];
+        $rules = ['fullname' => 'required', 'email' => 'required|email', 'password' => 'required|min:6'];
         $validation = Validator::make($input, $rules);
         if($validation->fails()){
             //return $validation->messages();
             return back()->withInput()->withErrors($validation);
         }
 
+        $userexist = User::where('email',$input['email'])->first();
+        if($userexist && $userexist->status == 'active'){
+            return back()->withInput()->with('error','Email already exist');
+        }
+
         $otp = rand(10000, 99999);
         $otp = 12345;
-
-        $insert = new User();
+        if(!$userexist){
+            $insert = new User();
+        }else{
+            $insert = $userexist;
+        }
         $insert->name = $input['fullname'];
         $insert->email = $input['email'];
         $insert->password = Hash::make('password');

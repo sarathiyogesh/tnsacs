@@ -22,11 +22,12 @@
                                     <div class="banner-desc">
                                         {!! Helpers::getcontent('section_1_14') !!}
                                     </div>
-                                    
+                                    @if(!Auth::check())
                                     <div class="local-scroll mt-30">
                                         <a href="{{ url('signup') }}" class="me-3 btn btn-mod btn-red btn-circle btn-medium shadow">Sign up</a>
                                         <a href="{{ url('signin') }}" class="btn btn-mod btn-border btn-circle btn-medium shadow">Login</a>
                                     </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-12 col-md-5 pt-xs-10">
