@@ -39,9 +39,9 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="category-title mb-10">{{$module->category}}</div>
-                        <h2 class="section-title font-alt align-left mb-30 mb-sm-10 wow fadeInDown" data-wow-delay="0.1s">
-                            {{$module->title}}
+                        <div class="category-title mb-10">{{$module->category}} <i class="las la-angle-right"></i> {{$module->title}}</div>
+                        <h2 class="hs-line-4 font-alt align-left mb-30 mb-sm-10 wow fadeInDown" data-wow-delay="0.1s">
+                            Chapter name should come here
                         </h2>
 
                         <div class="section-text">
