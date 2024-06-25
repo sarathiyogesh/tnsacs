@@ -172,7 +172,7 @@
         @endif
 
         <!--Learn anywhere Anytime Section-->
-        <section class="small-section bg-gray-lighter pt-0">
+        <section class="small-section bg-gray-lighter pt-0" id="mobileapp">
             <div class="container-1400 relative">
 
                 <div class="row d-flex justify-content-center text-center mt-20">

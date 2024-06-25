@@ -30,6 +30,10 @@
                         <div class="post-prev-text">
                            {!! $blog->short_description !!}
                         </div>
+
+                        <div class="post-cta-link mt-20">
+                            <a href="javascript:;" target="_blank" class="btn btn-mod btn-red btn-circle btn-small">View Details</a>
+                        </div>
                     </div>
                 </div>
 
