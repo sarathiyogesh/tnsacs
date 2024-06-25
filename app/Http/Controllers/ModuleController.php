@@ -120,6 +120,7 @@ class ModuleController extends Controller
          $rules =[
             'title' => 'required',
             'duration' => 'required|integer',
+            'description' => 'required',
             'url' => 'required'
         ];
         $validation = Validator::make($input, $rules);
@@ -129,6 +130,7 @@ class ModuleController extends Controller
         $insert = new Modulechapter();
         $insert->title = $input['title'];
         $insert->duration = $input['duration'];
+        $insert->description = $input['description'];
         $insert->video_url = $input['url'];
         $insert->module_id = $input['editid'];
         $insert->status = 'active';
@@ -149,6 +151,7 @@ class ModuleController extends Controller
          $rules =[
             'title' => 'required',
             'duration' => 'required|integer',
+            'description' => 'required',
             'url' => 'required'
         ];
         $validation = Validator::make($input, $rules);
@@ -157,6 +160,7 @@ class ModuleController extends Controller
         }
         $chapter->title = $input['title'];
         $chapter->duration = $input['duration'];
+        $chapter->description = $input['description'];
         $chapter->video_url = $input['url'];
         $chapter->save();
         return response()->json(['status'=>'success','msg'=>'Chapter updated successfully']);

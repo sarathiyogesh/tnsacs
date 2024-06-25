@@ -72,6 +72,18 @@
 									</div>
 								</div>
 
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="required form-label">Post external link</label>
+										<textarea name="post_external_link" id="post_external_link" class="form-control mb-2" rows="3">{!! old('post_external_link') !!}</textarea>
+										@if($errors->has("post_external_link"))
+											<span id="post_external_link-error" class="help-block">{!! $errors->first("post_external_link") !!}</span>
+										@endif
+									</div>
+								</div>
+
+								<p style="font-size: 20px" class="text-center">OR</p>
+
 
 								<div class="col-md-12">
 									<div class="form-group">

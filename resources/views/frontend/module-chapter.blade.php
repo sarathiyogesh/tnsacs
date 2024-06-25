@@ -41,12 +41,19 @@
                     <div class="col-md-6">
                         <div class="category-title mb-10">{{$module->category}} <i class="las la-angle-right"></i> {{$module->title}}</div>
                         <h2 class="hs-line-4 font-alt align-left mb-30 mb-sm-10 wow fadeInDown" data-wow-delay="0.1s">
-                            Chapter name should come here
+                            {{$chapter->title}}
                         </h2>
 
-                        <div class="section-text">
-                          {!! $module->description !!}
-                        </div>
+                        @if($chapter->description)
+                            <div class="section-text">
+                              {!! $chapter->description !!}
+                            </div>
+                        @else
+                            <div class="section-text">
+                              {!! $module->description !!}
+                            </div>
+                        @endif
+                        
 
                         <div class="mt-30"><a href="{{ url('modules') }}" class="btn btn-mod btn-red btn-circle btn-medium">Back to Modules</a></div>
                     </div>
