@@ -31,7 +31,7 @@
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li><a href="{{ url('/modules') }}">Modules</a></li>
                 <li><a href="{{ url('/modules') }}">Certificates</a></li>
-                <li><a href="javascript:;">Mobile App</a></li>
+                <li><a href="#mobileapp">Mobile App</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
             @if(Auth::check())

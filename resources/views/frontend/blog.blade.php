@@ -24,10 +24,9 @@
 
 
                 <div class="row">
-
                     @foreach($blogs as $blog)
-                            <!--Repeat Post-->
-                            <div class="col-md-4">
+                        <!--Repeat Post-->
+                        <div class="col-md-4 mb-30">
                             <div class="blogPost">
                                 <div class="post-prev-img">
                                     <a href="/blog/{{$blog->slug}}"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
