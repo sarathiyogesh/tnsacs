@@ -136,6 +136,7 @@
 												<input type="hidden" id="title_{{$chapter->id}}" value="{{$chapter->title}}">
 												<input type="hidden" id="duration_{{$chapter->id}}" value="{{$chapter->duration}}">
 												<input type="hidden" id="url_{{$chapter->id}}" value="{{$chapter->video_url}}">
+												<input type="hidden" id="description_{{$chapter->id}}" value="{{$chapter->description}}">
 												<a href="javascript:;" class="actionLink editBtn" data-id="{{$chapter->id}}"><i class="las la-edit"></i> Edit</a>
 											</td>
 										</tr>
@@ -187,6 +188,13 @@
 					</div>
 				</div>
 
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="required form-label">Description</label>
+						<textarea class="form-control mb-2"  name="chapter_description" id="chapter_description"></textarea>
+					</div>
+				</div>
+
 
 		      </div>
 		      <div class="modal-footer">
@@ -232,6 +240,13 @@
 					</div>
 				</div>
 
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="required form-label">Description</label>
+						<textarea class="form-control mb-2"  name="e_description" id="e_description"></textarea>
+					</div>
+				</div>
+
 
 		      </div>
 		      <div class="modal-footer">
@@ -262,6 +277,7 @@
 			$('#e_chapter_title').val($('#title_'+id).val());
 			$('#e_chapter_duration').val($('#duration_'+id).val());
 			$('#e_chapter_video_url').val($('#url_'+id).val());
+			$('#e_description').val($('#description_'+id).val());
 			$('#e_edit_id').val(id);
 			$('#editChapterModal').modal('show');
 		});
@@ -273,13 +289,14 @@
 			var title = $('#chapter_title').val();
 			var duration = $('#chapter_duration').val();
 			var url = $('#chapter_video_url').val();
+			var description = $('#chapter_description').val();
 			var editid = $('#editid').val();
 			console.log(editid);
 			$.ajax({
                 url:"{{ url('admin/module/chapter/add') }}",
                 dataType: 'json',
 				headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'), },
-                data: { title: title, duration:duration, url: url,editid: editid },
+                data: { title: title, duration:duration, url: url,description:description,editid: editid },
                 type:"POST",
                 success: function(res){
                 	t.text(ctxt).prop('disabled', false);;
@@ -307,13 +324,14 @@
 			var title = $('#e_chapter_title').val();
 			var duration = $('#e_chapter_duration').val();
 			var url = $('#e_chapter_video_url').val();
+			var description = $('#e_description').val();
 			var editid = $('#editid').val();
 			var chapter_id = $('#e_edit_id').val();
 			$.ajax({
                 url:"{{ url('admin/module/chapter/update') }}",
                 dataType: 'json',
 				headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'), },
-                data: { title: title, duration:duration, url: url,editid: editid,chapter_id:chapter_id },
+                data: { title: title, duration:duration, url: url,description:description,editid: editid,chapter_id:chapter_id },
                 type:"POST",
                 success: function(res){
                 	t.text(ctxt).prop('disabled', false);;

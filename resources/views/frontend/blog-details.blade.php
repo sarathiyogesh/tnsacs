@@ -31,12 +31,15 @@
                            {!! $blog->short_description !!}
                         </div>
 
+                        @if($blog->post_external_link)
                         <div class="post-cta-link mt-20">
-                            <a href="javascript:;" target="_blank" class="btn btn-mod btn-red btn-circle btn-small">View Details</a>
+                            <a href="{{$blog->post_external_link}}" target="_blank" class="btn btn-mod btn-red btn-circle btn-small">View Details</a>
                         </div>
+                        @endif
                     </div>
                 </div>
 
+                @if(!$blog->post_external_link)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-text">
@@ -44,6 +47,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
             </div>
         </section>

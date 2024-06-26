@@ -55,7 +55,7 @@ class BlogController extends Controller
                 'status' => 'required',
                 'date' => 'required|date',
                 'feature_image' => 'required',
-                'description' => 'required',
+                //'description' => 'required',
                 'short_description' => 'required'
             ];
             $message = [ 'required' => 'this field is required.'];
@@ -87,7 +87,7 @@ class BlogController extends Controller
                 'status' => 'required',
                 'date' => 'required|date',
                 'feature_image' => 'required',
-                'description' => 'required',
+                //'description' => 'required',
                 'short_description' => 'required'
             ];
             $message = [ 'required' => 'this field is required.'];

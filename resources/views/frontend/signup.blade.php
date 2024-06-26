@@ -34,6 +34,10 @@
                                                 @if($errors->has("email"))
                                                     <span id="email-error" class="help-block">{!! $errors->first("email") !!}</span>
                                                 @endif
+
+                                                 @if(Session::has('error'))
+                                                    <span id="email-error" class="help-block">{!! Session::get('error') !!}</span>
+                                                @endif
                                             </div>
 
                                             <div class="form-group">

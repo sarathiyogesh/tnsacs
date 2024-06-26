@@ -184,7 +184,7 @@ class UserController extends Controller
                         $query->orWhere('email', 'LIKE', '%'.$search.'%');
                     });
             }
-            $records = $records->paginate(10);
+            $records = $records->where('status','active')->paginate(10);
             $html = view('users.onlineuser-view-table', compact('records'))->render();
             return response()->json(['status' => 'success', 'data' => $html]);
         }catch (Exception $e) {
