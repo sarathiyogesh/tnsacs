@@ -58,7 +58,7 @@ class FrontendController extends Controller
         $insert = new User();
         $insert->name = $input['fullname'];
         $insert->email = $input['email'];
-        $insert->password = Hash::make('password');
+        $insert->password = Hash::make($input['password']);
         $insert->email_otp = $otp;
         $insert->type='online';
         $insert->status = 'inactive';
