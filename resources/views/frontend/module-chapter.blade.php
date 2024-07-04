@@ -55,7 +55,7 @@
                         @endif
                         
 
-                        <div class="mt-30"><a href="{{ url('modules') }}" class="btn btn-mod btn-red btn-circle btn-medium">Back to Modules</a></div>
+                        <div class="mt-30 mb-xs-20"><a href="{{ url('modules') }}" class="btn btn-mod btn-red btn-circle btn-medium">Back to Modules</a></div>
                     </div>
                     <div class="col-md-6">
                         <div class="video-list">

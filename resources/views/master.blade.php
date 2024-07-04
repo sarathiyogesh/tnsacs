@@ -20,7 +20,7 @@
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{!! asset('plugins/global/plugins.bundle.css') !!}" rel="stylesheet" type="text/css" />
 		<link href="{!! asset('css/style.bundle.css') !!}" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+		<link href="{!! asset('css/line-awesome.min.css') !!}" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="{!! asset('css/toastr.min.css') !!}">
 
 		<!--end::Global Stylesheets Bundle-->

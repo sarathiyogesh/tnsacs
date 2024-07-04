@@ -41,13 +41,13 @@
                                     <a href="#contents" aria-controls="contents" class="nav-link active" data-bs-toggle="tab"  role="tab" aria-selected="true">Contents</a>
                                 </li>
                                 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="#bookmarks" aria-controls="bookmarks" class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false">Bookmarks</a>
                                 </li>
                                 
                                 <li class="nav-item">
                                     <a href="#forums" aria-controls="forums" class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false">Forum</a>
-                                </li>
+                                </li> --}}
                                 
                             </ul>                                
                             <!-- End Nav Tabs -->

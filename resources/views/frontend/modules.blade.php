@@ -94,10 +94,10 @@
                                 $if_download = 'yes';
                             }
                         ?>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-xs-20">
                             <div class="module-list">
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 mb-xs-10">
                                         <div class="image-round"><img src="{{ Media::geturl($module->banner_image) }}"></div>
                                     </div>
                                     <div class="col-md-7">

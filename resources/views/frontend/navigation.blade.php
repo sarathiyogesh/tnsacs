@@ -31,8 +31,8 @@
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li><a href="{{ url('/modules') }}">Modules</a></li>
                 <li><a href="{{ url('/modules') }}">Certificates</a></li>
-                <li><a href="#mobileapp">Mobile App</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="{{ url('/#mobileapp') }}">Mobile App</a></li>
+                <li><a href="{{ url('/#contact') }}">Contact Us</a></li>
             </ul>
             @if(Auth::check())
                 <ul class="admincta">
