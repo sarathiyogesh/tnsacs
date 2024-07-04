@@ -32,7 +32,7 @@
                                             <td height="10">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left">Dear <b>{!! $user->fullname !!}</b>,</td>
+                                            <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left">Dear <b>{!! $user->name !!}</b>,</td>
                                         </tr>
                                         <tr>
                                             <td height="10">&nbsp;</td>
