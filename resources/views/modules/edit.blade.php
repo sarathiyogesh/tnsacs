@@ -334,7 +334,7 @@
                 data: { title: title, duration:duration, url: url,description:description,editid: editid,chapter_id:chapter_id },
                 type:"POST",
                 success: function(res){
-                	t.text(ctxt).prop('disabled', false);;
+                	t.text(ctxt).prop('disabled', false);
                     if(res.status == 'success'){
                     	alert('Chapter updated successfully');
                     	$('#editChapterModal').modal('hide');

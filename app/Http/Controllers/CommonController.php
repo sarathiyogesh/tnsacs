@@ -60,11 +60,17 @@ class CommonController extends Controller
     // }
 
     public function testing(){
-        return \Hash::make('qwertyuiop');
-        Mail::raw('Hello, this is a test mail!', function ($message) {
-            $message->to('sarathinnce@gmail.com')->subject('Test Mail');
-        });
-        return 'succcess';
+        //return \Hash::make('qwertyuiop');
+        try{
+            Mail::send("emails.test_mail",['user' => ''], function($message){
+                $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
+                $message->to('mohan.velu89@gmail.com', 'mohan')->subject("Test mail from dev team");
+            });
+            return 'succcess';
+        }catch (Exception $e) {
+            return $e->getMessage();
+        }
+        //return 'succcess';
     }
 
     public function samplepdf(){

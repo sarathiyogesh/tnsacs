@@ -58,7 +58,7 @@ class FrontendController extends Controller
         }
 
         $otp = rand(10000, 99999);
-        $otp = 12345;
+        //$otp = 12345;
         if(!$userexist){
             $insert = new User();
         }else{
@@ -74,14 +74,14 @@ class FrontendController extends Controller
         $insert->save();
 
         //mail
-        // try{
-        //     Mail::send("emails.signup_otp",['user' => $insert], function($message) use ($input){
-        //         $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
-        //         $message->to($input['email'], $input['fullname'])->subject("Signup verfication");
-        //     });
-        // }catch (Exception $e) {
+        try{
+            Mail::send("emails.signup_otp",['user' => $insert], function($message) use ($input){
+                $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
+                $message->to($input['email'], $input['fullname'])->subject("Signup verfication");
+            });
+        }catch (Exception $e) {
             
-        // }
+        }
         $code = encrypt($insert->id);
         return redirect('signup/verify/'.$code)->with('success', 'OTP sent to your email. Please verify');
     }
