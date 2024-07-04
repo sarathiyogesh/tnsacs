@@ -2,14 +2,14 @@
 <footer class="small-section bg-gray bg-scroll footer pb-60 bg-pos-top" data-background="{{ asset('frontend/images/footer-bg.jpg') }}" id="contact">
     <div class="container">
         <div class="row d-flex align-items-end">
-            <div class="col-md-4">
-                <div class="widget">
+            <div class="col-md-4 mb-xs-20">
+                <div class="widget m-center">
                     <div class="widget-title">Address</div>
                     {{ Helpers::getcontent('footer_5') }}
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-xs-20">
                 <div class="text-center">
                     <div class="mb-20"><img src="{{ Helpers::getsingleimage('footer_6') }}"></div>
 

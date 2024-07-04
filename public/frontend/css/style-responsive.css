@@ -35,7 +35,7 @@ Project: Tamil Nadu state AIDS control society
         margin-top: -40px;
     } 
     .alt-service-item {
-        margin-top: 40px;
+        margin-top: 0px;
         padding-left: 48px;
     }
     .alt-services-title{
@@ -229,6 +229,10 @@ Project: Tamil Nadu state AIDS control society
     .hs-wrap {
         max-width: 400px;
     }
+    .my-video-dimensions {
+        width: 100% !important;
+        height: 300px !important;
+    }
     .hs-line-2{
         font-size: 50px;
     }
@@ -236,7 +240,9 @@ Project: Tamil Nadu state AIDS control society
     .hs-line-7 {
         font-size: 50px;
     }
-    
+    footer {
+        background-color: #A80000 !important;
+    }
     .page-section {
         padding: 80px 0;
     }    
@@ -273,7 +279,7 @@ Project: Tamil Nadu state AIDS control society
     margin-top: -30px;
     }
     .alt-service-item {
-        margin-top: 30px;
+        margin-top: 0px;
     }
 
     .works-filter a{
@@ -324,6 +330,20 @@ Project: Tamil Nadu state AIDS control society
     .nav-logo-wrap .logo {
         height: 50px;
     }
+    footer {
+        background: #A80000 !important;
+    }
+    .certificate-container .title {
+        padding: 0px 20px 30px 20px;
+    }
+    .module-list .main-title {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+    .downloadable {
+        left: 39%;
+        transform: translate(-30%, 0);
+    }
     .main-nav {
         height: 55px !important;
     }
@@ -348,7 +368,7 @@ Project: Tamil Nadu state AIDS control society
     }
     .inner-nav ul li {
         display: inline-block;
-        padding: 10px 10px;
+        padding: 5px;
         position: relative;
         list-style: none;
     }

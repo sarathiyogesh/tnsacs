@@ -37,6 +37,7 @@
                                             <div class="form-group">
                                                 <label class="font-alt">Password</label>
                                                 <input type="password" name="password" id="password" class="input-md round form-control" placeholder="Enter password">
+                                                <div class="align-right mt-2"><a href="javascript:;" class="text-red">Forgot Password?</a></div>
                                                 @if($errors->has("password"))
                                                     <span id="password-error" class="help-block">{!! $errors->first("password") !!}</span>
                                                 @endif

@@ -35,7 +35,7 @@
                                     {!! $blog->title !!}
                                 </div>
                                 <div class="post-prev-text">
-                                    {!! substr($blog->short_description, 0, 100) !!}...
+                                    {!! substr($blog->short_description, 0, 70) !!}...
                                 </div>
                                 <div class="post-prev-info">
                                     {!! date('D F d Y', strtotime($blog->date)) !!}

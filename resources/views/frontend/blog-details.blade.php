@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="row mb-40">
-                    <div class="col-md-5">
+                    <div class="col-md-5 mb-xs-10">
                         <img src="{{ Media::geturl($blog->feature_image) }}" alt="">
                     </div>
                     <div class="col-md-7">
@@ -67,24 +67,24 @@
                     @foreach($sugg_blogs as $blog)
                         <!--Repeat Post-->
                         <div class="col-md-4">
-                        <div class="blogPost">
-                            <div class="post-prev-img">
-                                <a href="/blog/{{$blog->slug}}"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
-                            </div>
-                            <div class="post-prev-title mb-10 font-alt">
-                                {!! $blog->title !!}
-                            </div>
-                            <div class="post-prev-text">
-                                {!! substr($blog->short_description, 0, 100) !!}...
-                            </div>
-                            <div class="post-prev-info">
-                                {!! date('D F d Y', strtotime($blog->date)) !!}
-                            </div>
-                            <div class="mt-20">
-                                <a href="/blog/{{$blog->slug}}" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                            <div class="blogPost mb-30 mb-xs-20">
+                                <div class="post-prev-img">
+                                    <a href="/blog/{{$blog->slug}}"><img src="{{ Media::geturl($blog->feature_image) }}" alt="" /></a>
+                                </div>
+                                <div class="post-prev-title mb-10 font-alt">
+                                    {!! $blog->title !!}
+                                </div>
+                                <div class="post-prev-text">
+                                    {!! substr($blog->short_description, 0, 70) !!}...
+                                </div>
+                                <div class="post-prev-info">
+                                    {!! date('D F d Y', strtotime($blog->date)) !!}
+                                </div>
+                                <div class="mt-20">
+                                    <a href="/blog/{{$blog->slug}}" class="btn btn-mod btn-red btn-circle btn-medium">Read more</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <!--End Repeat Post-->
                     @endforeach
                 </div>
