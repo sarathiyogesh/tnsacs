@@ -14,7 +14,7 @@
                                     <div class="login-container">
                                         <div class="mb-20 text-center"><img src="{{ asset('frontend/images/vop.png') }}"></div>
 
-                                        <h3 class="mb-20 font-alt strong text-center">Login to your account</h3>
+                                        <h3 class="mb-20 font-alt strong text-center">Reset Password</h3>
 
                                         @if(Session::has('success'))
                                             <div class="alert alert-success">{{ Session::get('success') }}</div>
@@ -24,31 +24,28 @@
                                             <div class="alert alert-danger">{{ Session::get('error') }}</div>
                                         @endif
 
-                                        <form class="form contact-form" action="{{ url('/signin/post') }}" method="POST">
+                                        <form class="form contact-form" action="{{ url('/resetpassword/post') }}" method="POST">
                                             {{ csrf_field() }}
-                                            <div class="form-group">
-                                                <label class="font-alt">Email Address</label>
-                                                <input type="text" name="email" id="email" class="input-md round form-control" placeholder="Enter email address">
-                                                @if($errors->has("email"))
-                                                    <span id="email-error" class="help-block">{!! $errors->first("email") !!}</span>
-                                                @endif
-                                            </div>
-
                                             <div class="form-group">
                                                 <label class="font-alt">Password</label>
                                                 <input type="password" name="password" id="password" class="input-md round form-control" placeholder="Enter password">
-                                                <div class="align-right mt-2"><a href="/forgot-password" class="text-red">Forgot Password?</a></div>
                                                 @if($errors->has("password"))
                                                     <span id="password-error" class="help-block">{!! $errors->first("password") !!}</span>
                                                 @endif
                                             </div>
 
-                                            <div>
-                                                <button type="submit" onclick="$(this).text('Processing...')" class="btn btn-mod btn-red btn-circle btn-medium w-100">Login</button>
+                                            <div class="form-group">
+                                                <label class="font-alt">Confirm Password</label>
+                                                <input type="password" name="confirm_password" id="confirm_password" class="input-md round form-control" placeholder="Enter confirm password">
+                                                @if($errors->has("confirm_password"))
+                                                    <span id="confirm_password-error" class="help-block">{!! $errors->first("confirm_password") !!}</span>
+                                                @endif
                                             </div>
 
-                                            <div class="mt-20 text-center">
-                                                Create new Account? <a href="{{ url('signup') }}" class="text-red">Signup</a>
+                                            <input type="hidden" name="verify_token" id="verify_token" value="{{$user->verify_token}}">
+
+                                            <div>
+                                                <button type="submit" onclick="$(this).text('Processing...')" class="btn btn-mod btn-red btn-circle btn-medium w-100">Submit</button>
                                             </div>
                                         </form>
                                     </div>

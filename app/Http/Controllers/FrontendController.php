@@ -187,7 +187,65 @@ class FrontendController extends Controller
         return back()->with('error', 'Please enter valid OTP');
     }
 
+    public function forgotpassword(){
+        if(Auth::check()){
+            return redirect('');
+        }
+        return view('frontend.forgot_password');
+    }
 
+    public function forgotpasswordpost(Request $req){
+        $input = $req->all();
+        $rules = ['email' => 'required|email'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            //return $validation->messages();
+            return back()->withInput()->withErrors($validation);
+        }
+        $userexist = User::where('email',$input['email'])->where('status','active')->first();
+        if(!$userexist){
+            return back()->withInput()->with('error','Email not exist. Please verify');
+        }
+        $userexist->verify_token = encrypt(time().'_'.$userexist->id);
+        $userexist->save();
+
+        //mail
+        try{
+            Mail::send("emails.forgotpassword",['user' => $userexist], function($message) use ($userexist){
+                $message->from(env('ADMIN_EMAIL'), env('ADMIN_NAME')) ;
+                $message->to($userexist->email, $userexist->name)->subject("Forgot Password");
+            });
+        }catch (Exception $e) {
+            
+        }
+        return back()->with('success', 'Reset password link sent to your email successfully');
+    }
+
+    public function resetpasswordget($token){
+        $user = User::where('verify_token',$token)->where('status','active')->first();
+        if(!$user){
+            return redirect('');
+        }
+        return view('frontend.reset_password',compact('user'));
+    }
+
+    public function resetpasswordpost(Request $req){
+        $input = $req->all();
+        $rules = ['password' => 'required|min:6|required_with:confirm_password|same:confirm_password', 'confirm_password' => 'required|min:6'];
+        $validation = Validator::make($input, $rules);
+        if($validation->fails()){
+            //return $validation->messages();
+            return back()->withInput()->withErrors($validation);
+        }
+        $userexist = User::where('verify_token',$input['verify_token'])->where('status','active')->first();
+        if(!$userexist){
+            return back()->withInput()->with('error','Email not exist. Please verify');
+        }
+        $userexist->verify_token = '';
+        $userexist->password = Hash::make($input['password']);
+        $userexist->save();
+        return redirect('/signin')->with('success', 'Password updated successfully');
+    }
 
     public function logout(){
         Auth::logout();

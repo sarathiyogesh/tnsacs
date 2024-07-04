@@ -49,7 +49,7 @@
                                             </div>
 
                                             <div>
-                                                <button type="submit" class="btn btn-mod btn-red btn-circle btn-medium w-100">Signup</button>
+                                                <button type="submit" onclick="$(this).text('Processing...')" class="btn btn-mod btn-red btn-circle btn-medium w-100">Signup</button>
                                             </div>
 
                                             <div class="mt-20 text-center">
@@ -69,4 +69,12 @@
         </div>
         <!-- End Fullwidth Slider -->
     </main>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        });
+    </script>
 @endsection

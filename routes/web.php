@@ -43,6 +43,12 @@ Route::group(['middleware' => ['guest']], function() {
     Route::post('/signin/verify/post', 'FrontendController@signinverifypost');
     Route::get('/signin', 'FrontendController@login');
     Route::post('/signin/post', 'FrontendController@signinpost');
+
+    Route::get('/forgot-password', 'FrontendController@forgotpassword');
+    Route::post('/forgotpassword/post', 'FrontendController@forgotpasswordpost');
+    Route::get('/resetpassword/{verifytoken}', 'FrontendController@resetpasswordget');
+    Route::post('/resetpassword/post', 'FrontendController@resetpasswordpost');
+
 });
 
 

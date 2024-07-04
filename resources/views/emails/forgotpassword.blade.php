@@ -13,7 +13,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left"><img width="280" height="68" src="{!! asset('frontend/images/logo.png') !!}"></td>
-                                            <td style="font-family:Segoe UI,arial;font-style:normal;font-size:20px;font-weight:bold;color:#373536" align="right">Signup OTP</td>
+                                            <td style="font-family:Segoe UI,arial;font-style:normal;font-size:20px;font-weight:bold;color:#373536" align="right">Forgot Password</td>
                                         </tr>
                                         <tr>
                                             <td height="25"></td>
@@ -38,20 +38,22 @@
                                             <td height="10">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left">Here is your signup OTP Code</td>
+                                            <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left">Click below button to set your password</td>
                                         </tr>
                                         <tr>
                                             <td height="10">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-family:Segoe UI,arial;font-size:22px;font-weight:800;color:#28374f;text-align:left;background-color: #ddd;padding: 5px 10px;display: inline-block;">{{ $otp }}</td>
+                                            <td style="font-family:Segoe UI,arial;font-size:22px;font-weight:800;color:#28374f;text-align:left;background-color: #ddd;padding: 5px 10px;display: inline-block;">
+                                                <a href="{{ url('resetpassword/'.$user->verify_token) }}">Click here</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td height="10">&nbsp;</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left">Please make sure you never share this code with anyone.</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr> 
                                           <td style="font-family:Segoe UI,arial;font-size:15px;color:#28374f;text-align:left"><br>
                                           Best Regards,<br>
